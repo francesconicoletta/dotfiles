@@ -1,0 +1,3 @@
+#!/bin/sh
+
+dmenu -fn "Ubuntu mono:size 12" -P -p "$1" <&- && echo

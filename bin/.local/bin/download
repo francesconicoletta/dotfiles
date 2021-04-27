@@ -1,0 +1,48 @@
+#!/bin/sh
+
+YOUTUBE_REGEX='^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$'
+date=$(date +"%F")
+name=$(echo $1 | rev | cut -d'/' -f 1 | rev)
+
+if echo "$1" | grep -qE "$YOUTUBE_REGEX"; then
+	youtube-dl -o "$HOME/Downloads/Videos/%(title)s-%(id)s.%(ext)s" "$1"
+else
+	# Algoritmi e Strutture Dati
+	if echo "$1" | grep -qE "2126"; then
+		path="$HOME/Documents/uni/secondoanno/secondosemestre/asd/videos"
+		aria2c -x 16 -s 16 -k 1M -d "$path" "$1";
+		echo "$date - Algoritmi e Strutture Dati - $name - $path/$name" >> "$HOME/Documents/uni/secondoanno/secondosemestre/todo.md"
+	# Algoritmi e Strutture Dati Laboratorio
+	elif echo "$1" | grep -qE "webex"; then
+		path="$HOME/Documents/uni/secondoanno/secondosemestre/asdlab/videos"
+		aria2c -x 16 -s 16 -k 1M -d "$path" "$1";
+		echo "$date - Algoritmi e Strutture Dati Laboratorio - $name - $path/$name" >> "$HOME/Documents/uni/secondoanno/secondosemestre/todo.md"
+	# Basi di Dati
+	elif echo "$1" | grep -qE "1885"; then
+		printf "\nIs this a lab lesson? (y/N) "
+		read -r answer
+		if [ "$answer" != "${answer#[Yy]}" ]; then
+			path="$HOME/Documents/uni/secondoanno/secondosemestre/bdl/videos"
+			aria2c -x 16 -s 16 -k 1M -d "$path" "$1";
+			echo "$date - Basi di Dati Laboratorio - $name - $path/$name" >> "$HOME/Documents/uni/secondoanno/secondosemestre/todo.md"
+		else
+			path="$HOME/Documents/uni/secondoanno/secondosemestre/bd/videos"
+			aria2c -x 16 -s 16 -k 1M -d "$path" "$1";
+			echo "$date - Basi di Dati - $name - $path/$name" >> "$HOME/Documents/uni/secondoanno/secondosemestre/todo.md"
+		fi
+	# Fisica
+	elif echo "$1" | grep -qE "260430"; then
+		path="$HOME/Documents/uni/secondoanno/secondosemestre/fisica/videos"
+		aria2c -x 16 -s 16 -k 1M -d "$path" "$1";
+		echo "$date - Fisica - $name - $path/$name" >> "$HOME/Documents/uni/secondoanno/secondosemestre/todo.md"
+	# Economia
+	elif echo "$1" | grep -qE "2178"; then
+		path="$HOME/Documents/uni/secondoanno/secondosemestre/egid/economia/videos"
+		aria2c -x 16 -s 16 -k 1M -d "$path" "$1";
+		echo "$date - Economia - $name - $path/$name" >> "$HOME/Documents/uni/secondoanno/secondosemestre/todo.md"
+	else
+		aria2c -x 16 -s 16 -k 1M -d "$HOME/Downloads" "$1";
+	fi
+fi
+
+notify-send "Download completed" "$1" -u low -i dialog-information

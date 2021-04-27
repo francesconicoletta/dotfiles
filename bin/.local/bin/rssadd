@@ -1,0 +1,37 @@
+#!/bin/sh
+
+! echo "$1" | grep "https*://\S\+\.[A-Za-z]\+\S*" > /dev/null &&
+	echo "That doesn't look like a full URL." && exit
+
+YOUTUBE_REGEX='^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$'
+RSSFILE="$HOME/.newsboat/urls"
+
+if awk '{print $1}' "$RSSFILE" | grep "^$1$" > /dev/null; then
+	echo "You already have this RSS feed."
+else
+	if echo "$1" | grep -qE "$YOUTUBE_REGEX"; then
+		info=$(curl -sfLS "$1" | tr '<|>|,|\r' '\n')
+
+		url=$(echo "$info" \
+			| awk -F'"' '/application\/rss\+xml/{print $8}')
+
+		name=$(echo "$info" \
+			| grep '\"name\":' \
+			| grep -Po '".*?"' \
+			| sed 's/"//g' \
+			| tail -n 1)
+
+		output="$url \"~$name\""
+
+		if awk '{print $1}' "$RSSFILE" | grep "^$url$" > /dev/null; then
+			echo "You already have this RSS feed."
+			exit 1
+		fi
+
+		sed "/---YOUTUBE---/a $output" "$RSSFILE" > "$RSSFILE.temp" &&
+			mv "$RSSFILE.temp" "$RSSFILE" && echo "RSS feed added."
+	else
+		sed "/---NEWSFEEDS---/a $1" "$RSSFILE" > "$RSSFILE.temp" &&
+			mv "$RSSFILE.temp" "$RSSFILE" && echo "RSS feed added."
+	fi
+fi

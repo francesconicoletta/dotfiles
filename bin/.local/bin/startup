@@ -1,0 +1,45 @@
+#!/bin/sh
+
+trackpoint="$(xinput list | grep TrackPoint | \
+    awk '{print $6}' | grep -o '[0-9]\+')"
+
+acceleration="$(xinput list-props "$trackpoint" | \
+    grep "libinput Accel Speed (" | grep -oP "(?<=\().*(?=\))")"
+
+trackpad="$(xinput list | grep Synaptics | awk '{print $5}' | \
+    grep -o '[0-9]\+')"
+
+enabled="$(xinput list-props "$trackpad" | grep "Device Enabled" | \
+	grep -oP "(?<=\().*(?=\))")"
+
+natscroll=$(xinput list-props 12 | grep "Natural Scrolling" | \
+	grep -oP "(?<=\().*(?=\))" | head -n 1)
+
+xinput set-prop "$trackpoint" "$acceleration" -0.6
+xinput set-prop "$trackpad" "$enabled" 1
+xinput set-prop "$trackpad" "$natscroll" 1
+
+setxkbmap -option caps:escape_shifted_capslock
+setxkbmap -option terminate:ctrl_alt_bksp
+setxkbmap -layout us -variant altgr-intl
+xset r rate 280 40
+
+statusbar &
+
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
+export SSH_AUTH_SOCK
+
+xrdb -merge ~/.Xresources
+
+export XSECURELOCK_NO_COMPOSITE=1
+xset s 300 5
+xss-lock -n /usr/libexec/xsecurelock/dimmer -l -- xsecurelock &
+
+/usr/bin/dunst &
+picom --backend glx --vsync &
+
+exec dwm

@@ -1,0 +1,49 @@
+#!/bin/bash
+
+timeout=1000
+
+getvolume() {
+	pactl list sinks | grep -m1 '^[[:space:]]Volume:' | \
+	sed -e 's,.* \([0-9][0-9]*\)%.*,\1,'
+}
+
+getbar() {
+	percent=$(getvolume)
+	if [ "$percent" -gt 100 ]; then
+		echo "Overamplification [$percent%]"
+		return 0
+	fi
+	echo -n '['
+	for ((i = 1 ; i <= percent; i = i + 5)); do echo -n "#"; done
+	for ((j = i ; j <= 100 ; j = j + 5)); do echo -n " "; done
+	echo "] $percent%"
+}
+
+if [ "$1" = 'micmute' ]; then
+	source="$(pactl list sources | grep -B 2 -m1 \
+		"Name: alsa_input.pci-0000_00_1b.0.analog-stereo" | grep Source | grep -o '[0-9]\+')"
+
+	pactl set-source-mute "$source" toggle
+	#notify-send "Mic toggled" -u low -t "$timeout"
+	dunstify "Mic toggled" -u low -r 91543 -t "$timeout"
+else
+	sink="$(pactl list sinks | grep -B 2 -m1\
+		"Name: alsa_output.pci-0000_00_1b.0.analog-stereo" | grep Sink | grep -o '[0-9]\+')"
+
+	if [ "$1" = 'up' ]; then
+		pactl set-sink-volume "$sink" +5%
+		#notify-send "Volume up: $(getvolume)%" -u low -t "$timeout"
+		dunstify "Volume: $(getbar)" -u low -r 91543 -t "$timeout"
+	elif [ "$1" = 'down' ]; then
+		pactl set-sink-volume "$sink" -5%
+		#notify-send "Volume down: $(getvolume)%" -u low -t "$timeout"
+		dunstify "Volume: $(getbar)" -u low -r 91543 -t "$timeout"
+	elif [ "$1" = 'mute' ]; then
+		pactl set-sink-mute "$sink" toggle
+		#notify-send "Mute toggled" -u low -t "$timeout"
+		dunstify "Mute toggled" -u low -r 91543 -t "$timeout"
+	fi
+fi
+
+paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+

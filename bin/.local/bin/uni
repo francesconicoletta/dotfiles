@@ -1,0 +1,30 @@
+#!/bin/bash
+unset option menu ERROR      # prevent inheriting values from the shell
+declare -a menu
+menu[0]=""
+
+while IFS= read -r line; do
+	menu[${#menu[@]}]="$line"
+done < $HOME/Documents/uni/secondoanno/secondosemestre/todo.md
+
+menu() {
+	for (( i=1; i<${#menu[@]}; i++ )); do
+		selected=$(echo ${menu[$i]} | awk 'NF{NF-=2};1')
+		echo "$i) $selected"
+	done
+	echo "Select option number:"
+}
+
+menu
+read option
+
+while ! [ "$option" -gt 0 ] 2>/dev/null || [ -z "${menu[$option]}" ]; do
+	echo "No such option '$option'" >&2
+	menu
+	read option
+done
+
+echo "($option) ${menu[$option]}"
+path=$(echo ${menu[$option]} | awk '{print $(NF)}')
+mpv $path
+
