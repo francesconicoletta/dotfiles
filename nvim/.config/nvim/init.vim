@@ -8,6 +8,7 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-rhubarb'
+	Plug 'puremourning/vimspector'
 call plug#end()
 "}}}
 
@@ -19,7 +20,7 @@ set shell=/bin/bash
 set encoding=utf-8
 set tabstop=8
 set shiftwidth=8
-set softtabstop=0 
+set softtabstop=0
 set noexpandtab
 set smarttab
 set hidden
@@ -265,3 +266,9 @@ let g:coc_explorer_global_presets = {
 \ }
 "}}}
 
+" Vimspector {{{
+let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+" Debug inspect
+nmap <Leader>di <Plug>VimspectorBalloonEval
+xmap <Leader>di <Plug>VimspectorBalloonEval
+"}}}
