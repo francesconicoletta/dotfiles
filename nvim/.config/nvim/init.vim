@@ -9,6 +9,7 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-rhubarb'
 	Plug 'puremourning/vimspector'
+	Plug 'dracula/vim', { 'as': 'dracula' }
 call plug#end()
 "}}}
 
@@ -98,10 +99,10 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 "}}}
 
 " Colorscheme {{{
-let g:gruvbox_italic=1
 set termguicolors
-autocmd vimenter * ++nested colorscheme gruvbox
+autocmd vimenter * ++nested colorscheme dracula
 
+" let g:gruvbox_italic=1
 " let g:gruvbox_contrast_light = 'hard'
 " let hr = (strftime('%H'))
 " if hr >= 19
@@ -272,33 +273,4 @@ let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 nmap <Leader>di <Plug>VimspectorBalloonEval
 xmap <Leader>di <Plug>VimspectorBalloonEval
 "}}}
-"
-" Terminal split {{{
-let g:term_buf = 0
-let g:term_win = 0
-function! TermToggle(height)
-    if win_gotoid(g:term_win)
-        hide
-    else
-        botright new
-        exec "resize " . a:height
-        try
-            exec "buffer " . g:term_buf
-        catch
-            call termopen($SHELL, {"detach": 0})
-            let g:term_buf = bufnr("")
-            set nonumber
-            set norelativenumber
-            set signcolumn=no
-        endtry
-        startinsert!
-        let g:term_win = win_getid()
-    endif
-endfunction
 
-nnoremap <leader>l :call TermToggle(12)<CR>
-inoremap <leader>l <Esc>:call TermToggle(12)<CR>
-tnoremap <leader>l <C-\><C-n>:call TermToggle(12)<CR>
-tnoremap <Esc> <C-\><C-n>
-tnoremap :q! <C-\><C-n>:q!<CR>
-" }}}
