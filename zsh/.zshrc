@@ -104,9 +104,14 @@ source $ZSH/oh-my-zsh.sh
 alias o="xdg-open"
 alias weather="curl wttr.in"
 alias pip="pip3"
-alias z="zellij"
-#alias clipmenu="clipmenu -i -fn 'Ubuntu mono:size 12'"
 alias dsync="cd ~/.dotfiles && git pull && nvim --headless +PlugInstall +qa && cd -"
+alias t="tmux"
+alias ta="tmux a -t"
+alias tls="tmux ls"
+alias tn="tmux new -t"
+#alias clipmenu="clipmenu -i -fn 'Ubuntu mono:size 12'"
+
+# Uni
 alias lftl="cd ~/Documents/uni/secondoanno/primosemestre/LFT_Lab"
 alias asd="cd ~/Documents/uni/secondoanno/secondosemestre/asd"
 alias asdl="cd ~/Documents/uni/secondoanno/secondosemestre/asdlab"

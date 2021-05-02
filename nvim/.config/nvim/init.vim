@@ -11,6 +11,7 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'puremourning/vimspector'
 	Plug 'sheerun/vim-polyglot'
 	Plug 'joshdick/onedark.vim'
+	Plug 'tpope/vim-commentary'
 call plug#end()
 "}}}
 
