@@ -9,7 +9,8 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-rhubarb'
 	Plug 'puremourning/vimspector'
-	Plug 'dracula/vim', { 'as': 'dracula' }
+	Plug 'sheerun/vim-polyglot'
+	Plug 'joshdick/onedark.vim'
 call plug#end()
 "}}}
 
@@ -74,7 +75,7 @@ au BufRead /tmp/neomutt-* set colorcolumn=72
 "}}}
 
 " Remaps {{{
-nnoremap <Up> :resize +2<CR> 
+nnoremap <Up> :resize +2<CR>
 nnoremap <Down> :resize -2<CR>
 nnoremap <Left> :vertical resize +2<CR>
 nnoremap <Right> :vertical resize -2<CR>
@@ -99,10 +100,10 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 "}}}
 
 " Colorscheme {{{
+let g:gruvbox_italic=1
 set termguicolors
-autocmd vimenter * ++nested colorscheme dracula
+autocmd vimenter * ++nested colorscheme onedark
 
-" let g:gruvbox_italic=1
 " let g:gruvbox_contrast_light = 'hard'
 " let hr = (strftime('%H'))
 " if hr >= 19
@@ -171,6 +172,7 @@ nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
+vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup

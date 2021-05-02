@@ -117,6 +117,7 @@ alias egid="cd ~/Documents/uni/secondoanno/secondosemestre/egid"
 alias todo="nvim ~/Documents/uni/secondoanno/secondosemestre/todo.md"
 alias asdp="cd ~/Documents/uni/secondoanno/secondosemestre/asdlab/laboratorio-algoritmi-2020-2021"
 alias es1="~/Documents/uni/secondoanno/secondosemestre/asdlab/laboratorio-algoritmi-2020-2021/es1"
+alias es2="~/Documents/uni/secondoanno/secondosemestre/asdlab/laboratorio-algoritmi-2020-2021/es2"
 
 # FZF
 ## Arch based
