@@ -1,17 +1,22 @@
 " Plugins {{{
 call plug#begin('~/.config/nvim/plugged')
+	" Themes
 	Plug 'morhetz/gruvbox'
+	Plug 'joshdick/onedark.vim'
+
+	" Git
 	Plug 'airblade/vim-gitgutter'
 	Plug 'rhysd/git-messenger.vim'
+	Plug 'tpope/vim-fugitive'
+	Plug 'tpope/vim-rhubarb'
+
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'tpope/vim-fugitive'
-	Plug 'tpope/vim-rhubarb'
 	Plug 'puremourning/vimspector'
 	Plug 'sheerun/vim-polyglot'
-	Plug 'joshdick/onedark.vim'
 	Plug 'tpope/vim-commentary'
+	Plug 'vim-airline/vim-airline'
 call plug#end()
 "}}}
 
@@ -103,7 +108,7 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Colorscheme {{{
 let g:gruvbox_italic=1
 set termguicolors
-autocmd vimenter * ++nested colorscheme onedark
+autocmd vimenter * ++nested colorscheme gruvbox
 
 " let g:gruvbox_contrast_light = 'hard'
 " let hr = (strftime('%H'))
@@ -277,3 +282,14 @@ nmap <Leader>di <Plug>VimspectorBalloonEval
 xmap <Leader>di <Plug>VimspectorBalloonEval
 "}}}
 
+" Prettier {{{
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+"}}}
+
+" Fugitive {{{
+nmap <leader>gs :G<CR>
+
+" dv on file
+nmap <leader>gf :diffget //2<CR>
+nmap <leader>gj :diffget //3<CR>
+"}}}

@@ -8,3 +8,5 @@ export NOTMUCH_CONFIG=~/.config/notmuch/config
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
+export PATH="$HOME/.local/npm/bin:$PATH"
+export npm_config_prefix="$HOME/.local/npm"
