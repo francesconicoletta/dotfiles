@@ -293,3 +293,22 @@ nmap <leader>gs :G<CR>
 nmap <leader>gf :diffget //2<CR>
 nmap <leader>gj :diffget //3<CR>
 "}}}
+
+" Coc Extensions {{{
+let g:coc_global_extensions = [
+    \ 'coc-clangd',
+    \ 'coc-deno',
+    \ 'coc-eslint',
+    \ 'coc-explorer',
+    \ 'coc-highlight',
+    \ 'coc-html',
+    \ 'coc-java',
+    \ 'coc-json',
+    \ 'coc-marketplace',
+    \ 'coc-pairs',
+    \ 'coc-pyright',
+    \ 'coc-tabnine',
+    \ 'coc-tsserver',
+    \ 'coc-yaml',
+    \ ]
+"}}}

@@ -1,6 +1,17 @@
 {
-"coc.preferences.formatOnSaveFiletypes": ["css", "markdown"],
-"suggest.completionItemKindLabels": {
+    "coc.preferences.formatOnSaveFiletypes": [
+    "c",
+    "cpp",
+    "json",
+    "python",
+    "javascript",
+    "typescript",
+    "css",
+    "markdown"
+  ],
+  "python.formatting.provider": "black",
+  "explorer.icon.enableNerdfont": true,
+  "suggest.completionItemKindLabels": {
     "method": "  ",
     "function": "  ",
     "variable": "[]",
