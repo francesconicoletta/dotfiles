@@ -108,7 +108,7 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Colorscheme {{{
 let g:gruvbox_italic=1
 set termguicolors
-autocmd vimenter * ++nested colorscheme gruvbox
+autocmd vimenter * ++nested colorscheme onedark
 
 " let g:gruvbox_contrast_light = 'hard'
 " let hr = (strftime('%H'))
@@ -310,5 +310,6 @@ let g:coc_global_extensions = [
     \ 'coc-tabnine',
     \ 'coc-tsserver',
     \ 'coc-yaml',
+    \ 'coc-emmet',
     \ ]
 "}}}
