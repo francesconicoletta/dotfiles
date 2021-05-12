@@ -1,25 +1,3 @@
-" Plugins {{{
-call plug#begin('~/.config/nvim/plugged')
-	" Themes
-	Plug 'morhetz/gruvbox'
-	Plug 'joshdick/onedark.vim'
-
-	" Git
-	Plug 'airblade/vim-gitgutter'
-	Plug 'rhysd/git-messenger.vim'
-	Plug 'tpope/vim-fugitive'
-	Plug 'tpope/vim-rhubarb'
-
-	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-	Plug 'junegunn/fzf.vim'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'puremourning/vimspector'
-	Plug 'sheerun/vim-polyglot'
-	Plug 'tpope/vim-commentary'
-	Plug 'vim-airline/vim-airline'
-call plug#end()
-"}}}
-
 " Basic Settings {{{
 set nocompatible
 filetype indent plugin on
@@ -105,12 +83,33 @@ cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 "}}}
 
+" Plugins {{{
+call plug#begin('~/.config/nvim/plugged')
+	" Themes
+	Plug 'gruvbox-community/gruvbox'
+	Plug 'joshdick/onedark.vim'
+
+	" Git
+	Plug 'airblade/vim-gitgutter'
+	Plug 'rhysd/git-messenger.vim'
+	Plug 'tpope/vim-fugitive'
+	Plug 'tpope/vim-rhubarb'
+
+	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+	Plug 'junegunn/fzf.vim'
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'sheerun/vim-polyglot'
+	Plug 'tpope/vim-commentary'
+	Plug 'vim-airline/vim-airline'
+call plug#end()
+"}}}
+
 " Colorscheme {{{
 let g:gruvbox_italic=1
 set termguicolors
 autocmd vimenter * ++nested colorscheme onedark
 
-" let g:gruvbox_contrast_light = 'hard'
+"let g:gruvbox_contrast_dark = 'soft'
 " let hr = (strftime('%H'))
 " if hr >= 19
 " set background=dark
@@ -275,13 +274,6 @@ let g:coc_explorer_global_presets = {
 \ }
 "}}}
 
-" Vimspector {{{
-let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
-" Debug inspect
-nmap <Leader>di <Plug>VimspectorBalloonEval
-xmap <Leader>di <Plug>VimspectorBalloonEval
-"}}}
-
 " Prettier {{{
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 "}}}
@@ -311,5 +303,6 @@ let g:coc_global_extensions = [
     \ 'coc-tsserver',
     \ 'coc-yaml',
     \ 'coc-emmet',
+    \ 'coc-snippets',
     \ ]
 "}}}

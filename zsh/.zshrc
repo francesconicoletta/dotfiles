@@ -104,6 +104,7 @@ source $ZSH/oh-my-zsh.sh
 alias o="xdg-open"
 alias weather="curl wttr.in"
 alias pip="pip3"
+alias trash="gio trash"
 alias dsync="cd ~/.dotfiles && git pull && nvim --headless +PlugInstall +qa && cd -"
 alias t="tmux"
 alias ta="tmux a -t"
