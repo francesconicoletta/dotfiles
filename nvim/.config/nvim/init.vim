@@ -2,7 +2,6 @@
 set nocompatible
 filetype indent plugin on
 syntax on
-set encoding=utf-8
 set tabstop=8
 set shiftwidth=8
 set softtabstop=0
@@ -11,38 +10,33 @@ set smarttab
 set hidden
 set wildmenu
 set wildmode=list:longest,full
-set showcmd
-set cmdheight=1
-set hlsearch
 set ignorecase
 set smartcase
 set backspace=indent,eol,start
-set autoindent
 set nostartofline
-set ruler
 set confirm
 set mouse=a
 set number
 set relativenumber
-set notimeout ttimeout ttimeoutlen=200
-set conceallevel=0
+" set notimeout ttimeout ttimeoutlen=200
 set splitbelow
 set breakindent
 set linebreak
 set colorcolumn=80
 "set signcolumn=yes
-set updatetime=100
+set updatetime=200
 set shortmess+=c
-set nrformats+=alpha
+set nrformats+=alpha,octal,hex,bin
 set undofile
 set incsearch
-set modifiable
 set foldmethod=marker
 set path+=**
 set nomodeline
 set splitright
 set list
 set cursorline
+set dictionary+=/usr/share/dict/words
+set omnifunc=syntaxcomplete#Complete
 "}}}
 
 " Remaps {{{
@@ -95,6 +89,7 @@ let g:gruvbox_italic=1
 set termguicolors
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'dark'
+hi Normal guibg=NONE ctermbg=NONE
 "}}}
 
 " FZF {{{
@@ -127,8 +122,8 @@ else
 endif
 
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-			\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+" 			\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -258,7 +253,6 @@ let g:coc_global_extensions = [
     \ 'coc-tsserver',
     \ 'coc-yaml',
     \ 'coc-emmet',
-    \ 'coc-snippets',
     \ ]
 "}}}
 
