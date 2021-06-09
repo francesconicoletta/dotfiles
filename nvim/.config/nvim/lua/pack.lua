@@ -23,4 +23,3 @@ require 'paq-nvim' {
 	'SirVer/ultisnips';
 	'honza/vim-snippets';
 }
-

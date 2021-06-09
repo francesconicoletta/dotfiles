@@ -22,4 +22,3 @@ require'compe'.setup {
     ultisnips = true;
   };
 }
-
