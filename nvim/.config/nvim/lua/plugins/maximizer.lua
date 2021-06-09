@@ -1,0 +1,3 @@
+--set_keymap('n', '<silent><F3>', '<cmd>MaximizerToggle<CR>')
+--set_keymap('v', '<silent><F3>', '<cmd>MaximizerToggle<CR>gv')
+--set_keymap('i', '<silent><F3>', '<C-o><cmd>MaximizerToggle<CR>')
