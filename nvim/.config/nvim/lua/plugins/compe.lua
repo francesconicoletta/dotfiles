@@ -22,3 +22,19 @@ require'compe'.setup {
     ultisnips = true;
   };
 }
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+	properties = {
+		'documentation',
+		'detail',
+		'additionalTextEdits',
+	}
+}
+
+vim.api.nvim_set_keymap('i', '<silent><expr> <C-Space>', "compe#complete()", {noremap = true})
+vim.api.nvim_set_keymap('i', '<silent><expr> <CR>', "compe#confirm('<CR>')", {noremap = true})
+vim.api.nvim_set_keymap('i', '<silent><expr> <C-e>', "compe#close('<C-e>')", {noremap = true})
+vim.api.nvim_set_keymap('i', '<silent><expr> <C-f>', "compe#scroll({ 'delta': +4 })", {noremap = true})
+vim.api.nvim_set_keymap('i', '<silent><expr> <C-d>', "compe#scroll({ 'delta': -4 })", {noremap = true})
