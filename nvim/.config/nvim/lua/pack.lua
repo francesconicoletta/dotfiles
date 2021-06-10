@@ -22,4 +22,5 @@ require 'paq-nvim' {
 	'szw/vim-maximizer';
 	'SirVer/ultisnips';
 	'honza/vim-snippets';
+	'mbbill/undotree';
 }

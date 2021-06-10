@@ -5,8 +5,8 @@ vim.api.nvim_set_keymap('n', '<Left>', '<cmd>vertical resize +2<CR>', {noremap =
 vim.api.nvim_set_keymap('n', '<Right>', '<cmd>vertical resize -2<CR>', {noremap = true})
 
 -- move and indent selected lines
-vim.api.nvim_set_keymap('v', 'K', "<cmd>move '<-2<CR>gv=gv", {noremap = true})
-vim.api.nvim_set_keymap('v', 'J', "<cmd>move '>+1<CR>gv=gv", {noremap = true})
+vim.api.nvim_set_keymap('v', 'K', [[:move '<-2<CR>gv=gv]], {noremap = true})
+vim.api.nvim_set_keymap('v', 'J', [[:move '>+1<CR>gv=gv]], {noremap = true})
 
 -- disable PageUp and PageDown keys
 vim.api.nvim_set_keymap('n', '<PageUp>', '', {noremap = true})
