@@ -1,33 +1,33 @@
-vim.cmd [[filetype plugin indent on]]
-vim.cmd [[syntax enable]] 
-
-vim.o.hidden = true
-vim.o.wildmenu = true
-vim.o.wildmode = "list:longest,full"
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.backspace = "indent,eol,start"
-vim.o.startofline = false
-vim.o.confirm = true
-vim.o.mouse = 'a'
-vim.wo.number = true
-vim.wo.relativenumber = true
-vim.o.breakindent = true
-vim.o.linebreak = true
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.autoindent = true
-vim.o.shiftwidth = 4
-vim.wo.colorcolumn = "80"
-vim.o.updatetime = 200
+vim.opt.hidden = true
+vim.opt.wildmenu = true
+vim.opt.wildmode = "list:longest,full"
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.backspace = "indent,eol,start"
+vim.opt.startofline = false
+vim.opt.confirm = true
+vim.opt.mouse = 'a'
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.breakindent = true
+vim.opt.linebreak = true
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.autoindent = true
+vim.opt.shiftwidth = 4
+vim.opt.colorcolumn = "80"
+vim.opt.updatetime = 200
+vim.opt.undofile = true
+vim.opt.incsearch = true
+vim.opt.modeline = false
+vim.opt.list = true
+vim.opt.cursorline = true
+vim.opt.foldlevelstart = 20
+vim.opt.completeopt = "menuone,noselect"
+vim.cmd [[set path+=**]]
 vim.cmd [[set shortmess+=c ]]
 vim.cmd [[set nrformats+=alpha,octal,hex,bin ]]
-vim.o.undofile = true
-vim.o.incsearch = true
-vim.cmd [[set path+=**]]
-vim.o.modeline = false
-vim.wo.list = true
-vim.o.cursorline = true
 vim.cmd [[set dictionary+=/usr/share/dict/words]]
-vim.o.completeopt = "menuone,noselect"
 vim.cmd [[set undofile]]
+vim.cmd [[filetype plugin indent on]]
+vim.cmd [[syntax enable]]

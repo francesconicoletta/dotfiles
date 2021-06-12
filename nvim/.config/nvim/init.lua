@@ -4,6 +4,9 @@ require('settings')
 -- remaps
 require('remaps')
 
+-- colorscheme
+require('colorscheme')
+
 -- plugins
 require('pack')
 require('plugins.fugitive')
@@ -14,6 +17,4 @@ require('plugins.lspinstall')
 require('plugins.compe')
 require('plugins.treesitter')
 require('plugins.undotree')
-
--- colorscheme
-require('colorscheme')
+require('plugins.lualine')
