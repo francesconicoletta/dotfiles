@@ -16,7 +16,7 @@ set relativenumber
 set breakindent
 set linebreak
 set colorcolumn=80
-set updatetime=200
+set updatetime=100
 set shortmess+=c
 set nrformats+=alpha,octal,hex,bin
 set undofile
@@ -261,7 +261,6 @@ let g:coc_global_extensions = [
     \ 'coc-java',
     \ 'coc-json',
     \ 'coc-marketplace',
-    \ 'coc-pairs',
     \ 'coc-pyright',
     \ 'coc-tsserver',
     \ 'coc-yaml',
