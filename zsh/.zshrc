@@ -109,7 +109,7 @@ alias trash="gio trash"
 alias copy="xsel -b <"
 alias docker="podman"
 alias dsync="cd ~/.dotfiles && git pull && nvim --headless +PlugInstall +qa && cd -"
-alias vim="nvim -u ~/.config/nvim/minimalinit.vim"
+alias vim="vimx"
 
 alias t="tmux"
 alias ta="tmux a -t"

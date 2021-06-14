@@ -11,16 +11,11 @@ set number
 set relativenumber
 set breakindent
 set linebreak
-set colorcolumn=80
 set nrformats+=alpha,octal,hex,bin
 set path+=**
 set nomodeline
+set undofile
 set list
-set cursorline
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
 
 nnoremap <Up> :resize +2<CR>
 nnoremap <Down> :resize -2<CR>
