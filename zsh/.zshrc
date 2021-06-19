@@ -109,7 +109,6 @@ alias trash="gio trash"
 alias copy="xsel -b <"
 alias docker="podman"
 alias dsync="cd ~/.dotfiles && git pull && nvim --headless +PlugInstall +qa && cd -"
-alias vim="vimx"
 
 alias t="tmux"
 alias ta="tmux a -t"
@@ -133,7 +132,7 @@ alias es2="~/Documents/uni/secondoanno/secondosemestre/asdlab/laboratorio-algori
 #source /usr/share/fzf/key-bindings.zsh
 #source /usr/share/fzf/completion.zsh
 ## Debian based
-#source /usr/share/doc/fzf/examples/key-bindings.zsh
-#source /usr/share/doc/fzf/examples/completion.zsh
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 ## RHEL based
-source /usr/share/fzf/shell/key-bindings.zsh
+#source /usr/share/fzf/shell/key-bindings.zsh

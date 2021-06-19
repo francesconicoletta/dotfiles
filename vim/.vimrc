@@ -15,7 +15,6 @@ set nrformats+=alpha,octal,hex,bin
 set path+=**
 set nomodeline
 set undofile
-set list
 
 nnoremap <Up> :resize +2<CR>
 nnoremap <Down> :resize -2<CR>
