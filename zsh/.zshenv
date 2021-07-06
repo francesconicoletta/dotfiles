@@ -1,4 +1,4 @@
-export EDITOR=nvim
+export EDITOR=vim
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$PATH:$HOME/.cargo/bin
 export SUDO_ASKPASS=$HOME/.local/bin/dmenupass
@@ -12,3 +12,7 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 # npm
 export PATH="$HOME/.local/npm/bin:$PATH"
 export npm_config_prefix="$HOME/.local/npm"
+. "$HOME/.cargo/env"
+
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"

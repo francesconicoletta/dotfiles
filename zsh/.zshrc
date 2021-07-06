@@ -108,6 +108,7 @@ alias pip="pip3"
 alias trash="gio trash"
 alias copy="xsel -b <"
 alias docker="podman"
+alias todo="vim ~/Documents/sync/appunti/todo"
 alias dsync="cd ~/.dotfiles && git pull && nvim --headless +PlugInstall +qa && cd -"
 
 alias t="tmux"

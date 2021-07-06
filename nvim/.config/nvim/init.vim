@@ -80,6 +80,7 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'szw/vim-maximizer'
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
+	Plug 'rust-lang/rust.vim'
 call plug#end()
 "}}}
 

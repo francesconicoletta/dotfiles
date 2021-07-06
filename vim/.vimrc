@@ -15,6 +15,8 @@ set nrformats+=alpha,octal,hex,bin
 set path+=**
 set nomodeline
 set undofile
+set clipboard=unnamedplus
+set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 
 nnoremap <Up> :resize +2<CR>
 nnoremap <Down> :resize -2<CR>
