@@ -1,4 +1,4 @@
-export EDITOR=vim
+export EDITOR=nvim
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$PATH:$HOME/.cargo/bin
 export SUDO_ASKPASS=$HOME/.local/bin/dmenupass

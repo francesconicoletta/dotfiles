@@ -25,10 +25,13 @@ return require('packer').startup(function()
     use 'hrsh7th/nvim-compe'
     use 'kabouzeid/nvim-lspinstall'
 
-    use 'nvim-lua/popup.nvim'
-    use 'nvim-lua/plenary.nvim'
-    use 'nvim-telescope/telescope.nvim'
-    use 'nvim-telescope/telescope-fzy-native.nvim'
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = {
+           {'nvim-lua/popup.nvim'},
+           {'nvim-lua/plenary.nvim'},
+           {'nvim-telescope/telescope-fzy-native.nvim'}}
+    }
 
     use 'tpope/vim-commentary'
     use 'szw/vim-maximizer'

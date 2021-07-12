@@ -9,7 +9,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="eastwood"
-ZSH_THEME="robbyrussell"
+ZSH_THEME="eastwood"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -110,11 +110,16 @@ alias copy="xsel -b <"
 alias docker="podman"
 alias todo="vim ~/Documents/sync/appunti/todo"
 alias dsync="cd ~/.dotfiles && git pull && nvim --headless +PlugInstall +qa && cd -"
+alias temp="cat /sys/class/thermal/thermal_zone*/temp"
 
 alias t="tmux"
 alias ta="tmux a -t"
 alias tls="tmux ls"
 alias tn="tmux new -t"
+
+# Toolbox
+alias fedora="export RPROMPT='Fedora' && toolbox enter --release 34"
+alias ubuntu="toolbox enter -c ubuntu-toolbox-latest"
 
 # Uni
 alias lftl="cd ~/Documents/uni/secondoanno/primosemestre/LFT_Lab"
