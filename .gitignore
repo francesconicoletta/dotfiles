@@ -23,4 +23,6 @@ tags
 *.retry
 
 nvim/.config/nvim/plugged/
+nvim/.config/nvim/plugin/
 newsboat/.newsboat/cache.db*
+Godot*
