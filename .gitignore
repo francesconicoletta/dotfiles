@@ -24,5 +24,6 @@ tags
 
 nvim/.config/nvim/plugged/
 nvim/.config/nvim/plugin/
+nvim/.config/nvim/plugin/packer_compiled.lua
 newsboat/.newsboat/cache.db*
 Godot*
