@@ -3,6 +3,7 @@ export PATH=$HOME/.local/bin:$PATH
 #export SUDO_ASKPASS=$HOME/.local/bin/dmenupass
 #export XSECURELOCK_BLANK_TIMEOUT=0
 #export NOTMUCH_CONFIG=~/.config/notmuch/config
+export CONDA_AUTO_ACTIVATE_BASE=false
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
