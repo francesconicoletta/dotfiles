@@ -3,12 +3,8 @@ local fn = vim.fn
 
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
-  execute 'packadd packer.nvim'
-end
-
-return require('packer').startup(function()
+local function load_plugins()
+  return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
 
     use 'folke/tokyonight.nvim'
@@ -26,20 +22,32 @@ return require('packer').startup(function()
     use 'kabouzeid/nvim-lspinstall'
 
     use {
-        'nvim-telescope/telescope.nvim',
-        requires = {
-           {'nvim-lua/popup.nvim'},
-           {'nvim-lua/plenary.nvim'},
-           {'nvim-telescope/telescope-fzy-native.nvim'}}
-    }
+      'nvim-telescope/telescope.nvim',
+      requires = {
+        {'nvim-lua/popup.nvim'},
+        {'nvim-lua/plenary.nvim'},
+        {'nvim-telescope/telescope-fzy-native.nvim'}}
+      }
 
-    use 'tpope/vim-commentary'
-    use 'szw/vim-maximizer'
-    use 'SirVer/ultisnips'
-    use 'honza/vim-snippets'
-    use 'mbbill/undotree'
+      use 'tpope/vim-commentary'
+      use 'szw/vim-maximizer'
+      use 'SirVer/ultisnips'
+      use 'honza/vim-snippets'
+      use 'mbbill/undotree'
 
-    use { 'hoob3rt/lualine.nvim',
+      use { 'hoob3rt/lualine.nvim',
       requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
-end)
+  end)
+end
+
+if fn.isdirectory(install_path) == 0 then
+  fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path }
+  load_plugins()
+  require('packer').sync()
+  vim.cmd 'autocmd User PackerComplete ++once qa'
+else
+  load_plugins()
+  load_config()
+end
+

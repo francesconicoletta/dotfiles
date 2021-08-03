@@ -1,20 +1,17 @@
--- settings
 require('settings')
-
--- remaps
 require('remaps')
 
--- plugins
-require('pack')
-require('plugins.fugitive')
-require('plugins.maximizer')
-require('plugins.telescope')
-require('plugins.lspconfig')
-require('plugins.lspinstall')
-require('plugins.compe')
-require('plugins.treesitter')
-require('plugins.undotree')
-require('plugins.lualine')
+function load_config()
+  require('plugins.fugitive')
+  require('plugins.maximizer')
+  require('plugins.telescope')
+  require('plugins.lspconfig')
+  require('plugins.lspinstall')
+  require('plugins.compe')
+  require('plugins.treesitter')
+  require('plugins.undotree')
+  require('plugins.lualine')
+  require('colorscheme')
+end
 
--- colorscheme
-require('colorscheme')
+require('pack')
