@@ -11,6 +11,7 @@ function load_config()
   require('plugins.treesitter')
   require('plugins.undotree')
   require('plugins.lualine')
+  require('plugins.nvim-tree')
   require('colorscheme')
 end
 
