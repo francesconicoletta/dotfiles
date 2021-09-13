@@ -22,7 +22,6 @@ tags
 ### Ansible ###
 *.retry
 
-nvim/.config/nvim/plugged/
-nvim/.config/nvim/plugin/
 newsboat/.newsboat/cache.db*
 Godot*
+nvim/.config/nvim/plugin/packer_compiled.lua
