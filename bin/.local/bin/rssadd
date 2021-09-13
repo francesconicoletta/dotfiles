@@ -28,10 +28,8 @@ else
 			exit 1
 		fi
 
-		sed "/---YOUTUBE---/a $output" "$RSSFILE" > "$RSSFILE.temp" &&
-			mv "$RSSFILE.temp" "$RSSFILE" && echo "RSS feed added."
+		echo "$output" >> "$RSSFILE"
 	else
-		sed "/---NEWSFEEDS---/a $1" "$RSSFILE" > "$RSSFILE.temp" &&
-			mv "$RSSFILE.temp" "$RSSFILE" && echo "RSS feed added."
+		echo "$1" >> "$RSSFILE"
 	fi
 fi

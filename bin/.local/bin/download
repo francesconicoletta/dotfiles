@@ -3,7 +3,7 @@
 YOUTUBE_REGEX='^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$'
 
 if echo "$1" | grep -qE "$YOUTUBE_REGEX"; then
-	youtube-dl -o "$HOME/Downloads/Videos/%(title)s-%(id)s.%(ext)s" "$1"
+	yt-dlp -o "$HOME/Downloads/Videos/%(title)s-%(id)s.%(ext)s" "$1"
 else
 	aria2c -x 16 -s 16 -k 1M -d "$HOME/Downloads" "$1";
 fi
