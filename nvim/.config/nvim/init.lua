@@ -23,7 +23,6 @@ require('packer').startup(function()
   use 'szw/vim-maximizer'
   use 'mbbill/undotree'
   use 'ludovicchabant/vim-gutentags'
-  use 'kabouzeid/nvim-lspinstall'
 
   use 'tpope/vim-fugitive'
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
@@ -131,9 +130,6 @@ vim.api.nvim_exec(
   false
 )
 
--- yank until end of line
-vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
-
 -- gitsigns
 require('gitsigns').setup {
   signs = {
@@ -171,7 +167,7 @@ vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin'
 -- treesitter
 require('nvim-treesitter.configs').setup {
   highlight = {
-    enable = true, -- false will disable the whole extension
+    enable = true,
   },
   incremental_selection = {
     enable = true,
@@ -188,9 +184,8 @@ require('nvim-treesitter.configs').setup {
   textobjects = {
     select = {
       enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
       keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
         ['af'] = '@function.outer',
         ['if'] = '@function.inner',
         ['ac'] = '@class.outer',
@@ -199,7 +194,7 @@ require('nvim-treesitter.configs').setup {
     },
     move = {
       enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
+      set_jumps = true,
       goto_next_start = {
         [']m'] = '@function.outer',
         [']]'] = '@class.outer',
@@ -219,6 +214,8 @@ require('nvim-treesitter.configs').setup {
     },
   },
 }
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 
 -- LSP settings
 local nvim_lsp = require 'lspconfig'
@@ -250,7 +247,7 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
+local servers = { 'ccls', 'rust_analyzer', 'pyright', 'tsserver', 'gopls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -258,11 +255,9 @@ for _, lsp in ipairs(servers) do
   }
 end
 
--- Example custom server
-local sumneko_root_path = vim.fn.getenv 'HOME' .. '/.nix-profile' -- Change to your sumneko root installation
+local sumneko_root_path = vim.fn.getenv 'HOME' .. '/.nix-profile'
 local sumneko_binary = sumneko_root_path .. '/bin/lua-language-server'
 
--- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
@@ -274,17 +269,13 @@ require('lspconfig').sumneko_lua.setup {
   settings = {
     Lua = {
       runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = 'LuaJIT',
-        -- Setup your lua path
         path = runtime_path,
       },
       diagnostics = {
-        -- Get the language server to recognize the `vim` global
         globals = { 'vim' },
       },
       workspace = {
-        -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file('', true),
       },
       telemetry = {
