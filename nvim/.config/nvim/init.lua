@@ -20,7 +20,6 @@ require('packer').startup(function()
   use 'tpope/vim-commentary'
   use 'szw/vim-maximizer'
   use 'mbbill/undotree'
-  use 'lukas-reineke/indent-blankline.nvim'
 
   use 'tpope/vim-fugitive'
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
@@ -295,12 +294,6 @@ require('lspconfig').sumneko_lua.setup {
 }
 
 vim.o.completeopt = 'menuone,noselect'
-
--- blankline
-vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
-vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
-vim.g.indent_blankline_char_highlight = 'LineNr'
-vim.g.indent_blankline_show_trailing_blankline_indent = false
 
 -- luasnip
 local luasnip = require 'luasnip'
