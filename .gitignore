@@ -23,5 +23,6 @@ tags
 *.retry
 
 newsboat/.newsboat/cache.db*
+newsboat/.newsboat/history*
 Godot*
 nvim/.config/nvim/plugin/packer_compiled.lua
