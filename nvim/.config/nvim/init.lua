@@ -46,6 +46,7 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-nvim-lsp'
   use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip'
+  use 'williamboman/nvim-lsp-installer'
 end)
 
 vim.o.termguicolors = true
@@ -353,3 +354,13 @@ vim.api.nvim_set_keymap('i', '<silent><F3>', '<C-o><cmd>MaximizerToggle<CR>', {n
 -- nvim-tree
 vim.api.nvim_set_keymap('n', '<leader>e', ':NvimTreeToggle<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFile<CR>', {noremap = true})
+
+-- nvim--lsp-installer
+local lsp_installer = require("nvim-lsp-installer")
+
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
+    server:setup(opts)
+    vim.cmd [[ do User LspAttachBuffers ]]
+end)
+
