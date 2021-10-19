@@ -86,17 +86,6 @@ vim.opt.shortmess = vim.opt.shortmess + 'c'
 vim.opt.nrformats = vim.opt.nrformats + 'alpha' + 'octal'
 vim.opt.dictionary = vim.opt.dictionary + '/usr/share/dict/words'
 
--- foldlevel for init.lua
-vim.api.nvim_exec(
-  [[
-  augroup Foldinit
-    autocmd!
-    autocmd BufRead init.lua set foldlevel=0
-  augroup end
-]],
-  false
-)
-
 -- resizing
 vim.api.nvim_set_keymap('n', '<Up>', '<cmd>resize +2<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<Down>', '<cmd>resize -2<CR>', {noremap = true})
@@ -363,4 +352,3 @@ lsp_installer.on_server_ready(function(server)
     server:setup(opts)
     vim.cmd [[ do User LspAttachBuffers ]]
 end)
-
