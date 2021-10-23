@@ -20,39 +20,24 @@ require('packer').startup(function()
   use 'tpope/vim-commentary'
   use 'szw/vim-maximizer'
   use 'mbbill/undotree'
-
-  use 'tpope/vim-fugitive'
-  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-
-  use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-
-  use 'joshdick/onedark.vim'
-  use 'itchyny/lightline.vim'
-
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    requires = { 'nvim-treesitter/nvim-treesitter-textobjects' }
-  }
-
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = { 'kyazdani42/nvim-web-devicons' }
-  }
-
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip'
   use 'williamboman/nvim-lsp-installer'
+  use 'tpope/vim-fugitive'
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+  use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    requires = { 'nvim-treesitter/nvim-treesitter-textobjects' }
+  }
 end)
 
 vim.o.termguicolors = true
-vim.g.onedark_terminal_italics = 2
-vim.cmd [[colorscheme onedark]]
-
 vim.o.inccommand = 'nosplit'
 vim.opt.hidden = true
 vim.opt.wildmenu = true
@@ -77,7 +62,6 @@ vim.opt.undofile = true
 vim.opt.incsearch = true
 vim.opt.modeline = false
 vim.opt.list = true
-vim.opt.cursorline = true
 vim.opt.foldlevelstart = 20
 vim.opt.undofile = true
 vim.opt.completeopt = "menuone,noselect"
@@ -85,6 +69,7 @@ vim.opt.path = vim.opt.path + '**'
 vim.opt.shortmess = vim.opt.shortmess + 'c'
 vim.opt.nrformats = vim.opt.nrformats + 'alpha' + 'octal'
 vim.opt.dictionary = vim.opt.dictionary + '/usr/share/dict/words'
+vim.opt.laststatus=1
 
 -- resizing
 vim.api.nvim_set_keymap('n', '<Up>', '<cmd>resize +2<CR>', {noremap = true})
@@ -109,24 +94,6 @@ vim.api.nvim_set_keymap('c', 'w!!', "<cmd>execute 'silent! write !sudo tee % >/d
 
 -- change working directory
 vim.api.nvim_set_keymap('n', '<leader>cd', '<cmd>:cd %:p:h<CR>:pwd<CR>', {noremap = true})
-
--- statusbar
-vim.g.lightline = {
-  colorscheme = 'onedark',
-  active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'filename', 'modified' } } },
-  component_function = { gitbranch = 'fugitive#head' },
-}
-
--- highlight on yank
-vim.api.nvim_exec(
-  [[
-  augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-  augroup end
-]],
-  false
-)
 
 -- gitsigns
 require('gitsigns').setup {
@@ -339,10 +306,6 @@ vim.api.nvim_set_keymap('n', '<F5>', ':UndotreeToggle<cr>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<silent><F3>', '<cmd>MaximizerToggle<CR>', {noremap = true})
 vim.api.nvim_set_keymap('v', '<silent><F3>', '<cmd>MaximizerToggle<CR>gv', {noremap = true})
 vim.api.nvim_set_keymap('i', '<silent><F3>', '<C-o><cmd>MaximizerToggle<CR>', {noremap = true})
-
--- nvim-tree
-vim.api.nvim_set_keymap('n', '<leader>e', ':NvimTreeToggle<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFile<CR>', {noremap = true})
 
 -- nvim--lsp-installer
 local lsp_installer = require("nvim-lsp-installer")

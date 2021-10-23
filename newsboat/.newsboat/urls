@@ -3,9 +3,7 @@ https://jcs.org/rss
 http://feeds.feedburner.com/blogspot/Aohx
 https://googleprojectzero.blogspot.com/feeds/posts/default?alt=rss
 https://the-empire.systems/feed.xml
-https://www.romanzolotarev.com/rss.xml
 http://feeds.feedburner.com/GoogleOnlineSecurityBlog
-https://cert-agid.gov.it/feed/
 https://www.unixsheikh.com/feed.rss
 https://dataswamp.org/~solene/rss.xml
 https://www.exploit-db.com/rss.xml
@@ -13,12 +11,9 @@ https://eliseomartelli.it/rss.xml
 https://popey.com/blog/index.xml "~Alan Pope"
 http://lukesmith.xyz/rss.xml
 https://mises.org/feed/blog.rss
-https://morss.it/:newest/https://www.ansa.it/sito/ansait_rss.xml "~ANSA"
-https://lexfridman.com/feed/podcast/
 https://0xax.github.io/index.xml
 https://nullprogram.com/feed/
 
-https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA "~Mental Outlaw"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC9PIn6-XuRKZ5HmYeu46AIw "~Barely Sociable"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCgmI-uiLLAg--vDe7FFdekA "~Slightly Sociable"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCpFFItkfZz1qz5PpHpqzYBw "~Nexpo"
@@ -31,3 +26,4 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCcaTUtGzOiS4cqrgtcsHYWg "~j
 https://www.youtube.com/feeds/videos.xml?channel_id=UCMwo6hT5hI3R56rO2HYP-wQ "~James Scholz"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC17mJJnvzAa_e9qQqLIfIeQ "~Semicolon\x26Sons"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw "~ThePrimeagen"
+https://danluu.com/atom.xml
