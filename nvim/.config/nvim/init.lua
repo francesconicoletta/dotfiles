@@ -19,7 +19,6 @@ require('packer').startup(function()
   use 'tpope/vim-rhubarb'
   use 'tpope/vim-commentary'
   use 'szw/vim-maximizer'
-  use 'mbbill/undotree'
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
@@ -220,36 +219,6 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-local sumneko_root_path = vim.fn.getenv 'HOME' .. '/.nix-profile'
-local sumneko_binary = sumneko_root_path .. '/bin/lua-language-server'
-
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, 'lua/?.lua')
-table.insert(runtime_path, 'lua/?/init.lua')
-
-require('lspconfig').sumneko_lua.setup {
-  cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-        path = runtime_path,
-      },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file('', true),
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
-
 vim.o.completeopt = 'menuone,noselect'
 
 -- luasnip
@@ -298,9 +267,6 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
-
--- undotree
-vim.api.nvim_set_keymap('n', '<F5>', ':UndotreeToggle<cr>', {noremap = true})
 
 -- maximizer
 vim.api.nvim_set_keymap('n', '<silent><F3>', '<cmd>MaximizerToggle<CR>', {noremap = true})
