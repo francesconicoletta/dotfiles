@@ -41,7 +41,6 @@ alias todo="$EDITOR ~/Documents/todo"
 alias ta="tmux a -t"
 alias tls="tmux ls"
 alias tn="tmux new -t"
-alias fedora="toolbox enter --release 34"
-alias orario="cat $HOME/Documents/uni/terzoanno/primosemestre/orario"
+alias orario="cat $HOME/Documents/university/year3/semester1/orario"
 
 source /usr/share/fzf/shell/key-bindings.bash

@@ -8,4 +8,6 @@ else
 	aria2c -x 16 -s 16 -k 1M -d "$HOME/Downloads" "$1";
 fi
 
-notify-send "Download completed" "$1" -u low -i dialog-information
+if [ $? -eq 0 ]; then
+	notify-send "Download completed" "$1" -u low -i dialog-information
+fi
