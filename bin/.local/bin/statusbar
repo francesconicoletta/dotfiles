@@ -7,24 +7,24 @@ while true; do
 	#elif [ "$($getbat | cut -d' ' -f3)" != "Charging" ] && [ "$($getbat | cut -d' ' -f3)" != "Discharging" ]; then
 	#	getbat="-"
 	fi
-
+    getpowerprof=$(powerprofilesctl get)
 	getint=$(ip route get 1.1.1.1 | awk -F"dev " 'NR==1{split($2,a," ");print a[1]}')
-	if [ "$getint" != "enp0s25" ] && [ "$getint" != "wlp3s0" ]; then
+	if [ "$getint" != "enp0s31f6" ] && [ "$getint" != "wlp0s20f3" ]; then
 		getint="-"
 	fi
 
 	#getip=$(ip route get 1.1.1.1 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}')
-	getestat=E:$(cat /sys/class/net/enp0s25/operstate)
-	getwstat=W:$(cat /sys/class/net/wlp3s0/operstate)
+	getestat=E:$(cat /sys/class/net/enp0s31f6/operstate)
+	getwstat=W:$(cat /sys/class/net/wlp0s20f3/operstate)
 	gettemp=$(cut -b 1,2 /sys/class/thermal/thermal_zone0/temp)°C
 	getmem=$(free -h | awk '(NR==2){ print $3 }')
 	#/$(free -h | awk '(NR==2){ print $2 }')
 	getdate=$(date +"%a %F %R")
 
 	if [ "$1" != 'record' ]; then
-		xsetroot -grey -name "$getbat | $getint $getestat $getwstat | $gettemp | $getmem | $getdate"
+		xsetroot -grey -name "$getbat $getpowerprof | $getint $getestat $getwstat | $gettemp | $getmem | $getdate"
 	else
-		xsetroot -grey -name "$getbat | $getint $getestat $getwstat | $gettemp | $getmem | $getdate | REC *"
+		xsetroot -grey -name "$getbat $getpowerprof | $getint $getestat $getwstat | $gettemp | $getmem | $getdate | REC *"
 	fi
 	sleep 1s
 done &

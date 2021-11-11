@@ -2,9 +2,11 @@
 
 timeout=1000
 
+speaker="Name: alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink"
+mic="Name: alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_6__source"
+
 getvolume() {
-	pactl list sinks | grep -m1 '^[[:space:]]Volume:' | \
-	sed -e 's,.* \([0-9][0-9]*\)%.*,\1,'
+	pactl list sinks | grep -A 8 "$speaker" | grep -m1 '^[[:space:]]Volume:' | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,'
 }
 
 getbar() {
@@ -20,15 +22,13 @@ getbar() {
 }
 
 if [ "$1" = 'micmute' ]; then
-	source="$(pactl list sources | grep -B 2 -m1 \
-		"Name: alsa_input.pci-0000_00_1b.0.analog-stereo" | grep Source | grep -o '[0-9]\+')"
+	source="$(pactl list sources | grep -B 2 -m 1 "$mic" | grep Source | grep -o '[0-9]\+')"
 
 	pactl set-source-mute "$source" toggle
 	#notify-send "Mic toggled" -u low -t "$timeout"
 	dunstify "Mic toggled" -u low -r 91543 -t "$timeout"
 else
-	sink="$(pactl list sinks | grep -B 2 -m1\
-		"Name: alsa_output.pci-0000_00_1b.0.analog-stereo" | grep Sink | grep -o '[0-9]\+')"
+	sink="$(pactl list sinks | grep -B 2 -m 1 "$speaker" | grep Sink | grep -o '[0-9]\+')"
 
 	if [ "$1" = 'up' ]; then
 		pactl set-sink-volume "$sink" +5%

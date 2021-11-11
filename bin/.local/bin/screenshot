@@ -46,22 +46,26 @@ elif [ "$1" = 'copyselection' ]; then
 
 elif [ "$1" = 'record' ]; then
 	# Mod+r
-	# Record audio and video with ffmpeg
-	killall statusbar; statusbar record &
-	# shellcheck disable=SC2063
-	ffmpeg -f x11grab -video_size "$(xrandr | grep '*' | awk '{print $1}')" \
-		-framerate 30 -i "$DISPLAY" -f pulse -i default -c:v libx264 \
-		-preset ultrafast -c:a aac ~/Videos/recording"$(date '+%Y%m%d%H%M%S')".mp4 &
-	echo $! > /tmp/recpid
+	if [ ! -e /tmp/recpid ]; then
+		# Record audio and video with ffmpeg
+		killall statusbar; statusbar record &
+		# shellcheck disable=SC2063
+		ffmpeg -f x11grab -video_size "$(xrandr | grep '*' | awk '{print $1}')" \
+			-framerate 30 -i "$DISPLAY" -f pulse -i default -c:v libx264 \
+			-preset ultrafast -c:a aac ~/Videos/recording"$(date '+%Y%m%d%H%M%S')".mp4 &
+					echo $! > /tmp/recpid
+	fi
 
 elif [ "$1" = 'stoprecord' ]; then
 	# Mod+Shift+r
-	# Stop audio and video recording
-	recpid="$(cat /tmp/recpid)"
-	kill -2 "$recpid"
-	killall statusbar; statusbar &
-	notify-send "Recording stopped" -u low -t 1000
-	sleep 4
-	kill -9 "$recpid"
-	rm -f /tmp/recpid
+	if [ -e /tmp/recpid ]; then
+		# Stop audio and video recording
+		recpid="$(cat /tmp/recpid)"
+		kill -2 "$recpid"
+		killall statusbar; statusbar &
+		notify-send "Recording stopped" -u low -t 1000
+		sleep 4
+		kill -9 "$recpid"
+		rm -f /tmp/recpid
+	fi
 fi

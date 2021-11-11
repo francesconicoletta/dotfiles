@@ -1,7 +1,7 @@
 #!/bin/bash
 
 getbar() {
-	percent=$(($(brightnessctl get)*100/852))
+	percent=$(($(brightnessctl get)*100/24242))
 	echo -n '['
 	for ((i = 1; i <= percent; i = i + 5)); do echo -n "#"; done
 	for ((j = i ; j <= 100 ; j = j + 5)); do echo -n " "; done
