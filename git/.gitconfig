@@ -1,3 +1,5 @@
 [user]
 	email = francesconicoletta@nomnp.com
 	name = Francesco Nicoletta Puzzillo
+[init]
+	defaultBranch = master

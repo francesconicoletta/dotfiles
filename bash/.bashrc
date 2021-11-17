@@ -42,5 +42,6 @@ alias ta="tmux a -t"
 alias tls="tmux ls"
 alias tn="tmux new -t"
 alias orario="cat $HOME/Documents/university/year3/semester1/orario"
+alias play="mpv --no-audio-display"
 
 source /usr/share/fzf/shell/key-bindings.bash
