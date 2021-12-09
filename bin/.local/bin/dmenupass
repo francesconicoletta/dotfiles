@@ -1,3 +1,0 @@
-#!/bin/sh
-
-dmenu -fn "Source Code Pro:size 16" -P -p "$1" <&- && echo
