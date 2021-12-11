@@ -1,35 +1,31 @@
 #!/bin/sh
 
 ! echo "$1" | grep "https*://\S\+\.[A-Za-z]\+\S*" > /dev/null &&
-	echo "That doesn't look like a full URL." && exit
+	echo "That doesn't look like a full URL." && exit 1
 
 YOUTUBE_REGEX='^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$'
 RSSFILE="$HOME/.newsboat/urls"
+arg="$1"
 
-if awk '{print $1}' "$RSSFILE" | grep "^$1$" > /dev/null; then
+if echo "$arg" | grep -qE "$YOUTUBE_REGEX"; then
+	info=$(curl -sfLS "$arg" | tr '<|>|,|\r' '\n')
+
+	url=$(echo "$info" \
+		| awk -F'"' '/application\/rss\+xml/{print $8}')
+
+	name=$(echo "$info" \
+		| grep '\"name\":' \
+		| grep -Po '".*?"' \
+		| sed 's/"//g' \
+		| tail -n 1)
+
+	arg="$url \"~$name\""
+fi
+
+if awk '{print $1}' "$RSSFILE" | grep "^$arg$" > /dev/null; then
 	echo "You already have this RSS feed."
+	exit 1
 else
-	if echo "$1" | grep -qE "$YOUTUBE_REGEX"; then
-		info=$(curl -sfLS "$1" | tr '<|>|,|\r' '\n')
-
-		url=$(echo "$info" \
-			| awk -F'"' '/application\/rss\+xml/{print $8}')
-
-		name=$(echo "$info" \
-			| grep '\"name\":' \
-			| grep -Po '".*?"' \
-			| sed 's/"//g' \
-			| tail -n 1)
-
-		output="$url \"~$name\""
-
-		if awk '{print $1}' "$RSSFILE" | grep "^$url$" > /dev/null; then
-			echo "You already have this RSS feed."
-			exit 1
-		fi
-
-		echo "$output" >> "$RSSFILE"
-	else
-		echo "$1" >> "$RSSFILE"
-	fi
+	echo "$arg" >> "$RSSFILE"
+	sort -o "$RSSFILE" "$RSSFILE"
 fi
