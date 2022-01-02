@@ -51,10 +51,10 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.breakindent = true
 vim.opt.linebreak = true
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
+vim.opt.tabstop = 8
+vim.opt.softtabstop = 8
 vim.opt.autoindent = true
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 8
 vim.opt.colorcolumn = "80"
 vim.opt.updatetime = 200
 vim.opt.undofile = true
@@ -273,11 +273,10 @@ vim.api.nvim_set_keymap('n', '<silent><F3>', '<cmd>MaximizerToggle<CR>', {norema
 vim.api.nvim_set_keymap('v', '<silent><F3>', '<cmd>MaximizerToggle<CR>gv', {noremap = true})
 vim.api.nvim_set_keymap('i', '<silent><F3>', '<C-o><cmd>MaximizerToggle<CR>', {noremap = true})
 
--- nvim--lsp-installer
+-- nvim-lsp-installer
 local lsp_installer = require("nvim-lsp-installer")
 
 lsp_installer.on_server_ready(function(server)
     local opts = {}
     server:setup(opts)
-    vim.cmd [[ do User LspAttachBuffers ]]
 end)
