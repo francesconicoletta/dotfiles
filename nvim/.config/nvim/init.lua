@@ -26,7 +26,6 @@ require('packer').startup(function()
   use 'L3MON4D3/LuaSnip'
   use 'williamboman/nvim-lsp-installer'
   use 'sainnhe/gruvbox-material'
-  use 'folke/tokyonight.nvim'
   use 'tpope/vim-fugitive'
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
@@ -38,7 +37,7 @@ require('packer').startup(function()
   }
 end)
 
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd[[colorscheme gruvbox-material]]
 vim.o.termguicolors = true
 vim.o.inccommand = 'nosplit'
 vim.opt.hidden = true
@@ -71,7 +70,7 @@ vim.opt.path = vim.opt.path + '**'
 vim.opt.shortmess = vim.opt.shortmess + 'c'
 vim.opt.nrformats = vim.opt.nrformats + 'alpha' + 'octal'
 vim.opt.dictionary = vim.opt.dictionary + '/usr/share/dict/words'
-vim.opt.laststatus=1
+--vim.opt.laststatus=1
 
 -- resizing
 vim.api.nvim_set_keymap('n', '<Up>', '<cmd>resize +2<CR>', {noremap = true})
