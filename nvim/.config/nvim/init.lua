@@ -38,7 +38,7 @@ require('packer').startup(function()
 end)
 
 vim.cmd[[colorscheme gruvbox-material]]
-vim.o.termguicolors = true
+--vim.o.termguicolors = true
 vim.o.inccommand = 'nosplit'
 vim.opt.hidden = true
 vim.opt.wildmenu = true
