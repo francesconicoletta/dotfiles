@@ -1,3 +1,8 @@
+set -o emacs
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
 alias la="ls -lah"
 alias weather="curl wttr.in"
 alias pip="pip3"
@@ -8,3 +13,4 @@ alias ta="tmux a -t"
 alias tls="tmux ls"
 alias tn="tmux new -t"
 alias orario="cat $HOME/Documents/university/semester2/orario"
+alias zephyr="source $HOME/Projects/zephyrproject/.venv/bin/activate"
