@@ -12,5 +12,5 @@ restow :
 	stow --target $(HOME) --verbose --restow $(stow_dirs)
 
 .PHONY : unstow
-delete :
+unstow :
 	stow --target $(HOME) --verbose --delete $(stow_dirs)
