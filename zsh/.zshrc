@@ -14,3 +14,15 @@ alias tls="tmux ls"
 alias tn="tmux new -t"
 alias orario="cat $HOME/Documents/university/semester2/orario"
 alias zephyr="source $HOME/Projects/zephyrproject/.venv/bin/activate"
+
+case "$OSTYPE" in
+  darwin*)
+  alias o="open"
+  ;;
+  linux*)
+  alias o="xdg-open"
+  alias trash="gio trash"
+  alias play="mpv --no-audio-display"
+  alias mpv="gnome-session-inhibit mpv"
+  ;;
+esac
