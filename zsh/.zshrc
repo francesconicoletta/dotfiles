@@ -10,6 +10,12 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
+take()
+{
+    mkdir -p -- "$1" &&
+      cd -P -- "$1"
+}
+
 alias la="ls -lah"
 alias weather="curl wttr.in"
 alias pip="pip3"
