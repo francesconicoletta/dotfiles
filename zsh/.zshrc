@@ -2,6 +2,13 @@ set -o emacs
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
+autoload -Uz promptinit
+promptinit
+prompt redhat
+
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
 
 alias la="ls -lah"
 alias weather="curl wttr.in"
