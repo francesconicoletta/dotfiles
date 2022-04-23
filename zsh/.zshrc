@@ -2,6 +2,10 @@ set -o emacs
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
+bindkey ";5C" forward-word
+bindkey ";5D" backward-word
+autoload -U select-word-style && select-word-style bash
+
 autoload -Uz promptinit
 promptinit
 prompt redhat
