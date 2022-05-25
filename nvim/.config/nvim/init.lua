@@ -37,6 +37,7 @@ require('packer').startup(function()
   }
 end)
 
+vim.cmd 'let g:gruvbox_material_transparent_background = 1'
 vim.o.termguicolors = true
 vim.opt.background = "dark"
 vim.cmd 'colorscheme gruvbox-material'
