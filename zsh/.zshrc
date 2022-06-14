@@ -14,10 +14,28 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
+[ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
+
 take()
 {
     mkdir -p -- "$1" &&
       cd -P -- "$1"
+}
+
+rf()
+{
+	RG_PREFIX="rga --files-with-matches"
+	local file
+	file="$(
+		FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
+			fzf --sort --preview="[[ ! -z {} ]] && rga --pretty \
+				--context 5 {q} {}" \
+				--phony -q "$1" \
+				--bind "change:reload:$RG_PREFIX {q}" \
+				--preview-window="70%:wrap"
+	)" &&
+	echo "opening $file" &&
+	xdg-open "$file"
 }
 
 alias la="ls -lah"
@@ -31,6 +49,7 @@ alias tls="tmux ls"
 alias tn="tmux new -t"
 alias orario="cat $HOME/Documents/university/semester2/orario"
 alias zephyr="source $HOME/Projects/zephyrproject/.venv/bin/activate"
+alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 
 case "$OSTYPE" in
   darwin*)
@@ -41,5 +60,6 @@ case "$OSTYPE" in
   alias trash="gio trash"
   alias play="mpv --no-audio-display"
   alias mpv="gnome-session-inhibit mpv"
+  alias webcam="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
   ;;
 esac
