@@ -10,7 +10,7 @@ autoload -Uz promptinit
 promptinit
 prompt redhat
 
-HISTFILE=~/.histfile
+HISTFILE=$HOME/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
@@ -35,15 +35,19 @@ rf()
 				--preview-window="70%:wrap"
 	)" &&
 	echo "opening $file" &&
-	xdg-open "$file"
+	if (( $+commands[xdg-open] )); then
+		xdg-open "$file"
+	else
+		open "$file"
+	fi
 }
 
 alias la="ls -lah"
 alias weather="curl wttr.in"
 alias pip="pip3"
 alias docker="podman"
-alias todo="$EDITOR ~/Documents/todo"
-alias appunti="$EDITOR ~/Documents/appunti"
+alias todo="$EDITOR $HOME/Documents/todo"
+alias appunti="$EDITOR $HOME/Documents/appunti"
 alias ta="tmux a -t"
 alias tls="tmux ls"
 alias tn="tmux new -t"
@@ -58,8 +62,7 @@ case "$OSTYPE" in
   linux*)
   alias o="xdg-open"
   alias trash="gio trash"
-  alias play="mpv --no-audio-display"
   alias mpv="gnome-session-inhibit mpv"
-  alias webcam="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
+  alias webcam="gnome-session-inhibit mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
   ;;
 esac
