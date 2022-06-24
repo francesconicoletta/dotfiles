@@ -54,6 +54,7 @@ alias tn="tmux new -t"
 alias orario="cat $HOME/Documents/university/semester2/orario"
 alias zephyr="source $HOME/Projects/zephyrproject/.venv/bin/activate"
 alias rgai="rga --rga-adapters=+pdfpages,tesseract"
+alias watch="watch "
 
 case "$OSTYPE" in
   darwin*)
