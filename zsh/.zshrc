@@ -65,5 +65,6 @@ case "$OSTYPE" in
   alias trash="gio trash"
   alias mpv="gnome-session-inhibit mpv"
   alias webcam="gnome-session-inhibit mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
+  alias zzz="systemctl suspend"
   ;;
 esac
