@@ -10,16 +10,16 @@ autoload -Uz promptinit
 promptinit
 prompt redhat
 
-HISTFILE=$HOME/.histfile
-HISTSIZE=1000
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=2000
 SAVEHIST=1000
 
 [ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 take()
 {
-    mkdir -p -- "$1" &&
-      cd -P -- "$1"
+	mkdir -p -- "$1" && cd -P -- "$1"
 }
 
 rf()
@@ -51,20 +51,20 @@ alias appunti="$EDITOR $HOME/Documents/appunti"
 alias ta="tmux a -t"
 alias tls="tmux ls"
 alias tn="tmux new -t"
-alias orario="cat $HOME/Documents/university/semester2/orario"
 alias zephyr="source $HOME/Projects/zephyrproject/.venv/bin/activate"
 alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 alias watch="watch "
 
 case "$OSTYPE" in
-  darwin*)
-  alias o="open"
-  ;;
-  linux*)
-  alias o="xdg-open"
-  alias trash="gio trash"
-  alias mpv="gnome-session-inhibit mpv"
-  alias webcam="gnome-session-inhibit mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
-  alias zzz="systemctl suspend"
-  ;;
+	darwin*)
+	alias o="open"
+	alias abrew="arch -x86_64 /usr/local/Homebrew/bin/brew"
+	;;
+	linux*)
+	alias o="xdg-open"
+	alias trash="gio trash"
+	alias mpv="gnome-session-inhibit mpv"
+	alias webcam="gnome-session-inhibit mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
+	alias zzz="systemctl suspend"
+	;;
 esac
