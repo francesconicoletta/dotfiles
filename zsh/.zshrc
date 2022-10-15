@@ -10,12 +10,14 @@ autoload -Uz promptinit
 promptinit
 prompt redhat
 
+setopt SHARE_HISTORY
 HISTFILE=$HOME/.zsh_history
-HISTSIZE=2000
-SAVEHIST=1000
+HISTSIZE=1000000
+SAVEHIST=1000000
 
 [ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ] && source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+[[ $- == *i* ]] && [ -f /opt/homebrew/opt/fzf/shell/completion.zsh ] && source /opt/homebrew/opt/fzf/shell/completion.zsh 2> /dev/null
 
 take()
 {
@@ -43,17 +45,20 @@ rf()
 }
 
 alias la="ls -lah"
-alias weather="curl wttr.in"
 alias pip="pip3"
 alias docker="podman"
-alias todo="$EDITOR $HOME/Documents/todo"
-alias appunti="$EDITOR $HOME/Documents/appunti"
+alias todo="$VISUAL $HOME/Documents/todo"
 alias ta="tmux a -t"
 alias tls="tmux ls"
 alias tn="tmux new -t"
 alias zephyr="source $HOME/Projects/zephyrproject/.venv/bin/activate"
 alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 alias watch="watch "
+
+alias modsem="cd Documents/unito/magistrale/y1s1/MODSEM\ -\ Modellazione\ Concettuale\ per\ il\ Web\ Semantico/"
+alias aaut="cd Documents/unito/magistrale/y1s1/AAUT\ -\ Apprendimento\ Automatico/"
+alias mcad="cd Documents/unito/magistrale/y1s1/MCAD\ -\ Modelli\ Concorrenti\ e\ Algoritmi\ Distribuiti/"
+alias rndl="cd Documents/unito/magistrale/y1s1/RNDL\ -\ Reti\ Neurali\ e\ Deep\ Learning/"
 
 case "$OSTYPE" in
 	darwin*)

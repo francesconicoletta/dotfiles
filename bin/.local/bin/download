@@ -8,6 +8,22 @@ else
 	aria2c -x 16 -s 16 -k 1M -d "$HOME/Downloads" "$1";
 fi
 
-if [ $? -eq 0 ]; then
+notifymacos () {
+	osascript -ss - "$1" <<EOF
+	on run argv
+		display notification quoted form of item 1 of argv with title "Download completed" sound name "Blow"
+	end run
+	EOF
+}
+
+notifylinux () {
 	notify-send "Download completed" "$1" -u low -i dialog-information
+}
+
+if [ $? -eq 0 ]; then
+	if "$(uname)" | grep -qE "Darwin*"; then
+		notifymacos "$1"
+	else
+		notifylinux "$1"
+	fi
 fi

@@ -10,8 +10,8 @@ nnoremap("<Left>", "<cmd>vertical resize +2<CR>")
 nnoremap("<Right>", "<cmd>vertical resize -2<CR>")
 
 -- move and indent selected lines
-nnoremap("K", "[[:move '<-2<CR>gv=gv]]")
-nnoremap("J", "[[:move '>+1<CR>gv=gv]]")
+vnoremap("K", "[[:move '<-2<CR>gv=gv]]")
+vnoremap("J", "[[:move '>+1<CR>gv=gv]]")
 
 -- disable PageUp and PageDown keys
 nnoremap("<PageUp>", "")
@@ -25,3 +25,5 @@ inoremap("<PageDown>", "")
 
 -- change working directory
 nnoremap("<leader>cd", "<cmd>:cd %:p:h<CR>:pwd<CR>")
+
+xnoremap("<leader>p", "\"_dP")

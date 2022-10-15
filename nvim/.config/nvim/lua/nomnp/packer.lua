@@ -26,13 +26,14 @@ require('packer').startup(function()
   use 'L3MON4D3/LuaSnip'
   use 'williamboman/nvim-lsp-installer'
   use 'sainnhe/gruvbox-material'
+  use 'folke/tokyonight.nvim'
   use 'tpope/vim-fugitive'
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    requires = { 'nvim-treesitter/nvim-treesitter-textobjects' }
-  }
+  --use {
+  --  'nvim-treesitter/nvim-treesitter',
+  --  run = ':TSUpdate',
+  --  requires = { 'nvim-treesitter/nvim-treesitter-textobjects' }
+  --}
 end)

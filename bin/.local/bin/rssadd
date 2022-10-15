@@ -4,21 +4,13 @@
 	echo "That doesn't look like a full URL." && exit 1
 
 YOUTUBE_REGEX='^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$'
-RSSFILE="$HOME/.newsboat/urls"
+RSSFILE="$HOME/.config/newsboat/urls"
 arg="$1"
 
 if echo "$arg" | grep -qE "$YOUTUBE_REGEX"; then
 	info=$(curl -sfLS "$arg" | tr '<|>|,|\r' '\n')
-
-	url=$(echo "$info" \
-		| awk -F'"' '/application\/rss\+xml/{print $8}')
-
-	name=$(echo "$info" \
-		| grep '\"name\":' \
-		| grep -Po '".*?"' \
-		| sed 's/"//g' \
-		| tail -n 1)
-
+	url=$(echo "$info" | awk -F'"' '/application\/rss\+xml/{print $8}')
+	name=$(echo "$info" | grep '\"name\":' | cut -d '"' -f4)
 	arg="$url \"~$name\""
 fi
 

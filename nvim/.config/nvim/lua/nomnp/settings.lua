@@ -29,8 +29,9 @@ vim.opt.path = vim.opt.path + '**'
 vim.opt.shortmess = vim.opt.shortmess + 'c'
 vim.opt.nrformats = vim.opt.nrformats + 'alpha' + 'octal'
 vim.opt.dictionary = vim.opt.dictionary + '/usr/share/dict/words'
---vim.opt.laststatus=1
---vim.cmd 'let g:gruvbox_material_transparent_background = 1'
 --vim.o.termguicolors = true
+--vim.cmd 'let g:gruvbox_material_transparent_background = 1'
 --vim.opt.background = "dark"
 --vim.cmd 'colorscheme gruvbox-material'
+--vim.opt.laststatus=1
+vim.cmd [[ syntax off ]]
