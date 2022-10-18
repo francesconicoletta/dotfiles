@@ -27,3 +27,4 @@ inoremap("<PageDown>", "")
 nnoremap("<leader>cd", "<cmd>:cd %:p:h<CR>:pwd<CR>")
 
 xnoremap("<leader>p", "\"_dP")
+nnoremap("<leader>e", ":NvimTreeToggle<cr>")
