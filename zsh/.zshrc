@@ -10,6 +10,9 @@ autoload -Uz promptinit
 promptinit
 prompt redhat
 
+autoload -Uz compinit
+compinit
+
 setopt SHARE_HISTORY
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000000
@@ -22,6 +25,14 @@ SAVEHIST=1000000
 take()
 {
 	mkdir -p -- "$1" && cd -P -- "$1"
+}
+
+resizeterm()
+{
+	readonly height=${1:?"Height not specified"}
+	readonly width=${2:?"Width not specified"}
+
+	printf "\e[8;${width};${height}t"
 }
 
 rf()
@@ -55,11 +66,6 @@ alias zephyr="source $HOME/Projects/zephyrproject/.venv/bin/activate"
 alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 alias watch="watch "
 
-alias modsem="cd Documents/unito/magistrale/y1s1/MODSEM\ -\ Modellazione\ Concettuale\ per\ il\ Web\ Semantico/"
-alias aaut="cd Documents/unito/magistrale/y1s1/AAUT\ -\ Apprendimento\ Automatico/"
-alias mcad="cd Documents/unito/magistrale/y1s1/MCAD\ -\ Modelli\ Concorrenti\ e\ Algoritmi\ Distribuiti/"
-alias rndl="cd Documents/unito/magistrale/y1s1/RNDL\ -\ Reti\ Neurali\ e\ Deep\ Learning/"
-
 case "$OSTYPE" in
 	darwin*)
 	alias o="open"
@@ -73,3 +79,18 @@ case "$OSTYPE" in
 	alias zzz="systemctl suspend"
 	;;
 esac
+
+MODSEM="Documents/unito/magistrale/y1s1/MODSEM\ -\ Modellazione\ Concettuale\ per\ il\ Web\ Semantico"
+AAUT="Documents/unito/magistrale/y1s1/AAUT\ -\ Apprendimento\ Automatico"
+MCAD="Documents/unito/magistrale/y1s1/MCAD\ -\ Modelli\ Concorrenti\ e\ Algoritmi\ Distribuiti"
+RNDL="Documents/unito/magistrale/y1s1/RNDL\ -\ Reti\ Neurali\ e\ Deep\ Learning"
+
+alias modsem="cd $MODSEM"
+alias aaut="cd $AAUT"
+alias mcad="cd $MCAD"
+alias rndl="cd $RNDL"
+
+alias modsemn="resizeterm 85 45 && $VISUAL $MODSEM/notes"
+alias aautn="resizeterm 85 45 && $VISUAL $AAUT/notes"
+alias mcadn="resizeterm 85 45 && $VISUAL $MCAD/notes"
+alias rndln="resizeterm 85 45 && $VISUAL $RNDL/notes"
