@@ -26,6 +26,7 @@ require('packer').startup(function()
   use 'saadparwaiz1/cmp_luasnip'
   use 'folke/tokyonight.nvim'
   use 'tpope/vim-fugitive'
+  use 'lervag/vimtex'
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvim-telescope/telescope.nvim', tag = '0.1.0',
     requires = { 'nvim-lua/plenary.nvim' } }
