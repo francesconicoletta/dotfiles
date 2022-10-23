@@ -19,6 +19,7 @@ cmp.setup({
     { name = 'luasnip' },
   }, {
     { name = 'buffer' },
+    { name = 'path' },
   })
 })
 
@@ -39,12 +40,3 @@ cmp.setup.cmdline(':', {
       { name = 'cmdline' }
     })
 })
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-local servers = { 'clangd' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-end
