@@ -81,10 +81,10 @@ case "$OSTYPE" in
 	;;
 esac
 
-MODSEM="Documents/unito/magistrale/y1s1/MODSEM\ -\ Modellazione\ Concettuale\ per\ il\ Web\ Semantico"
-AAUT="Documents/unito/magistrale/y1s1/AAUT\ -\ Apprendimento\ Automatico"
-MCAD="Documents/unito/magistrale/y1s1/MCAD\ -\ Modelli\ Concorrenti\ e\ Algoritmi\ Distribuiti"
-RNDL="Documents/unito/magistrale/y1s1/RNDL\ -\ Reti\ Neurali\ e\ Deep\ Learning"
+MODSEM="$HOME/Documents/unito/magistrale/y1s1/MODSEM\ -\ Modellazione\ Concettuale\ per\ il\ Web\ Semantico"
+AAUT="$HOME/Documents/unito/magistrale/y1s1/AAUT\ -\ Apprendimento\ Automatico"
+MCAD="$HOME/Documents/unito/magistrale/y1s1/MCAD\ -\ Modelli\ Concorrenti\ e\ Algoritmi\ Distribuiti"
+RNDL="$HOME/Documents/unito/magistrale/y1s1/RNDL\ -\ Reti\ Neurali\ e\ Deep\ Learning"
 
 alias modsem="cd $MODSEM"
 alias aaut="cd $AAUT"
