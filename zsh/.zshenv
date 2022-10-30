@@ -8,21 +8,23 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
-export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
-
-export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
-export CARGO_HOME="$XDG_DATA_HOME"/cargo
-[ -f "$XDG_DATA_HOME/.cargo/env" ] && source "$XDG_DATA_HOME/.cargo/env"
-
-export ZEPHYR_SDK_INSTALL_DIR=$HOME/.local/opt/zephyr-sdk-0.14.2
-[ -f "$HOME/Projects/zephyrproject/zephyr/zephyr-env.sh" ] && source "$HOME/Projects/zephyrproject/zephyr/zephyr-env.sh"
-
 typeset -U path
 path=(
 	"$HOME/.local/bin"
-	"/opt/homebrew/Cellar/bison/3.8.2/bin"
-	"/opt/homebrew/opt/python@3.8/bin"
-	"/Users/nomnp/Library/Python/3.10/bin"
 	"/opt/homebrew/opt/fzf/bin"
 	$path)
 export PATH
+
+# Use appropriate XDG directories
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+export CONDARC="$XDG_CONFIG_HOME"/conda/condarc
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export IPYTHONDIR="${XDG_CONFIG_HOME}"/ipython
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
+export TERMINFO="$XDG_DATA_HOME"/terminfo
+export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
+export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
+
+[ -f "$XDG_DATA_HOME/.cargo/env" ] && source "$XDG_DATA_HOME/.cargo/env"
