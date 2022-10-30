@@ -31,6 +31,9 @@ opt.path = vim.opt.path + '**'
 opt.shortmess = opt.shortmess + 'c'
 opt.nrformats = opt.nrformats + 'alpha' + 'octal'
 opt.dictionary = opt.dictionary + '/usr/share/dict/words'
-opt.termguicolors = true
 --vim.cmd 'syntax off'
-vim.cmd 'colorscheme tokyonight'
+
+if os.getenv("TERM_PROGRAM") ~= "Apple_Terminal" then
+  opt.termguicolors = true
+  vim.cmd 'colorscheme tokyonight'
+end
