@@ -16,6 +16,7 @@ nnoremap('<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previ
 nnoremap('<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
 nnoremap('<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
 nnoremap('<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]])
+nnoremap('<leader>sm', [[<cmd>lua require('telescope.builtin').marks()<CR>]])
 nnoremap('<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]])
 nnoremap('<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
 nnoremap('<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]])

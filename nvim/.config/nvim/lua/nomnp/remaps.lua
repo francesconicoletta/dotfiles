@@ -26,4 +26,5 @@ inoremap("<PageDown>", "")
 -- change working directory
 nnoremap("<leader>cd", "<cmd>:cd %:p:h<CR>:pwd<CR>")
 
+-- paste over selection without yanking it
 xnoremap("<leader>p", "\"_dP")
