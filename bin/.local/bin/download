@@ -9,11 +9,11 @@ else
 fi
 
 notifymacos () {
-	osascript -ss - "$1" <<EOF
-	on run argv
-		display notification quoted form of item 1 of argv with title "Download completed" sound name "Blow"
-	end run
-	EOF
+osascript -ss - "$1" <<EOF
+on run argv
+display notification quoted form of item 1 of argv with title "Download completed" sound name "Blow"
+end run
+EOF
 }
 
 notifylinux () {
@@ -21,9 +21,8 @@ notifylinux () {
 }
 
 if [ $? -eq 0 ]; then
-	if "$(uname)" | grep -qE "Darwin*"; then
-		notifymacos "$1"
-	else
-		notifylinux "$1"
+	if [ $(uname) = "Darwin" ]
+	then notifymacos "$1"
+	else notifylinux "$1"
 	fi
 fi

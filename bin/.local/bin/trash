@@ -1,0 +1,17 @@
+#!/bin/sh
+
+trashmacos ()
+{
+osascript -ss - "$1" <<EOF
+on run argv
+set filePath to "${PWD}" & POSIX path of item 1 of argv
+tell application "Finder" to delete filePath as POSIX file
+do shell script "echo " & quoted form of filePath
+end run
+EOF
+}
+
+if [ $(uname) = "Darwin" ]
+then trashmacos "$1"
+else gio trash "$1"
+fi

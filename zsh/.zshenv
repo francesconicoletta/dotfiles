@@ -11,8 +11,18 @@ export XDG_STATE_HOME="$HOME/.local/state"
 typeset -U path
 path=(
 	"$HOME/.local/bin"
+	$path
+)
+
+case "$OSTYPE" in
+	darwin*)
+	path+=(
 	"/opt/homebrew/opt/fzf/bin"
-	$path)
+	"/opt/homebrew/opt/ccache/libexec"
+	)
+	;;
+esac
+
 export PATH
 
 # Use appropriate XDG directories
@@ -21,7 +31,7 @@ export CONDARC="$XDG_CONFIG_HOME"/conda/condarc
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
-export IPYTHONDIR="${XDG_CONFIG_HOME}"/ipython
+export IPYTHONDIR="$XDG_CONFIG_HOME"/ipython
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
 export TERMINFO="$XDG_DATA_HOME"/terminfo
 export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo

@@ -10,9 +10,6 @@ autoload -Uz promptinit
 promptinit
 prompt redhat
 
-autoload -Uz compinit
-compinit
-
 setopt SHARE_HISTORY
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000000
@@ -73,7 +70,6 @@ case "$OSTYPE" in
 	;;
 	linux*)
 	alias o="xdg-open"
-	alias trash="gio trash"
 	alias mpv="gnome-session-inhibit mpv"
 	alias webcam="gnome-session-inhibit mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
 	alias zzz="systemctl suspend"
