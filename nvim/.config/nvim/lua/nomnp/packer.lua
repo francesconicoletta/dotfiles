@@ -42,4 +42,11 @@ require('packer').startup(function()
 
   -- Speed up Lua modules loading
   use 'lewis6991/impatient.nvim'
+
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
+    requires = { 'nvim-treesitter/nvim-treesitter-textobjects' } }
+  use 'folke/tokyonight.nvim'
+
+  use 'nvim-tree/nvim-tree.lua'
+  use 'nvim-tree/nvim-web-devicons'
 end)
