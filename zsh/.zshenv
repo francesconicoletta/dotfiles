@@ -17,6 +17,7 @@ path=(
 case "$OSTYPE" in
 	darwin*)
 	path+=(
+	"/opt/homebrew/bin"
 	"/opt/homebrew/opt/fzf/bin"
 	"/opt/homebrew/opt/ccache/libexec"
 	)
