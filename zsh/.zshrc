@@ -25,10 +25,8 @@ SAVEHIST=1000000
 [[ $- == *i* ]] && [ -f /opt/homebrew/opt/fzf/shell/completion.zsh ] && source /opt/homebrew/opt/fzf/shell/completion.zsh 2> /dev/null
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-take()
-{
-	mkdir -p -- "$1" && cd -P -- "$1"
-}
+take() { mkdir -p -- "$1" && cd -P -- "$1" }
+brewhelper() { pushd -q /Users/brew;sudo -Hu brew /opt/homebrew/bin/brew $@; popd -q; }
 
 resizeterm()
 {
@@ -72,7 +70,7 @@ case "$OSTYPE" in
 	darwin*)
 	alias o="open"
 	alias abrew="arch -x86_64 /usr/local/Homebrew/bin/brew"
-	alias brew="sudo -Hu brew /opt/homebrew/bin/brew"
+	alias brew="brewhelper $@"
 	;;
 	linux*)
 	alias o="xdg-open"
