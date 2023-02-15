@@ -26,7 +26,6 @@ SAVEHIST=1000000
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 take() { mkdir -p -- "$1" && cd -P -- "$1" }
-brewhelper() { pushd -q /Users/brew;sudo -Hu brew /opt/homebrew/bin/brew $@; popd -q; }
 
 resizeterm()
 {
@@ -65,12 +64,12 @@ alias tn="tmux new -t"
 alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 alias watch="watch "
 alias vim="vim -u NONE"
+alias vi="nvi"
 
 case "$OSTYPE" in
 	darwin*)
 	alias o="open"
 	alias abrew="arch -x86_64 /usr/local/Homebrew/bin/brew"
-	alias brew="brewhelper $@"
 	;;
 	linux*)
 	alias o="xdg-open"
