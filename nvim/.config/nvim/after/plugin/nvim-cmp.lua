@@ -40,13 +40,3 @@ cmp.setup.cmdline(':', {
       { name = 'cmdline' }
     })
 })
-
-nvim_lsp.sumneko_lua.setup{
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { 'vim' }
-      }
-    }
-  }
-}
