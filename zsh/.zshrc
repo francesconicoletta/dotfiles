@@ -78,18 +78,3 @@ case "$OSTYPE" in
 	alias zzz="systemctl suspend"
 	;;
 esac
-
-MODSEM="$HOME/Documents/unito/magistrale/y1s1/MODSEM\ -\ Modellazione\ Concettuale\ per\ il\ Web\ Semantico"
-AAUT="$HOME/Documents/unito/magistrale/y1s1/AAUT\ -\ Apprendimento\ Automatico"
-MCAD="$HOME/Documents/unito/magistrale/y1s1/MCAD\ -\ Modelli\ Concorrenti\ e\ Algoritmi\ Distribuiti"
-RNDL="$HOME/Documents/unito/magistrale/y1s1/RNDL\ -\ Reti\ Neurali\ e\ Deep\ Learning"
-
-alias modsem="cd $MODSEM"
-alias aaut="cd $AAUT"
-alias mcad="cd $MCAD"
-alias rndl="cd $RNDL"
-
-alias modsemn="resizeterm 85 45 && $VISUAL $MODSEM/notes"
-alias aautn="resizeterm 85 45 && $VISUAL $AAUT/notes"
-alias mcadn="resizeterm 85 45 && $VISUAL $MCAD/notes"
-alias rndln="resizeterm 85 45 && $VISUAL $RNDL/notes"
