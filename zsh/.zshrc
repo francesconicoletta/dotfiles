@@ -57,14 +57,16 @@ rf()
 alias la="ls -lah"
 alias pip="pip3"
 alias docker="podman"
-alias todo="$VISUAL $HOME/Documents/todo"
 alias ta="tmux a -t"
 alias tls="tmux ls"
 alias tn="tmux new -t"
 alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 alias watch="watch "
-alias vim="vim -u NONE"
 alias vi="nvi"
+alias uni="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/unito/magistrale/y1s2/"
+
+#alias todo="$VISUAL $HOME/Documents/todo"
+alias todo="$VISUAL $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/todo"
 
 case "$OSTYPE" in
 	darwin*)
