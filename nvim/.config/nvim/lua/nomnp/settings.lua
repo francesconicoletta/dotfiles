@@ -18,7 +18,7 @@ opt.tabstop = 8
 opt.softtabstop = 8
 opt.autoindent = true
 opt.shiftwidth = 8
-opt.colorcolumn = "80"
+--opt.colorcolumn = "80"
 opt.updatetime = 200
 opt.undofile = true
 opt.incsearch = true
@@ -33,9 +33,9 @@ opt.nrformats = opt.nrformats + 'alpha' + 'octal'
 opt.dictionary = opt.dictionary + '/usr/share/dict/words'
 opt.clipboard = 'unnamedplus'
 
-if os.getenv("TERM_PROGRAM") ~= "Apple_Terminal" then
-  opt.termguicolors = true
-  vim.cmd 'colorscheme tokyonight'
-end
+--if os.getenv("TERM_PROGRAM") ~= "Apple_Terminal" then
+--  opt.termguicolors = true
+--  vim.cmd 'colorscheme tokyonight'
+--end
 
---vim.cmd 'syntax off'
+vim.cmd 'syntax off'
