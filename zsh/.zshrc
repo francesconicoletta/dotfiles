@@ -15,15 +15,7 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-# Fedora
-[ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
-# Ubuntu
-[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
-[ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
-# macOS
-[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ] && source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
-[[ $- == *i* ]] && [ -f /opt/homebrew/opt/fzf/shell/completion.zsh ] && source /opt/homebrew/opt/fzf/shell/completion.zsh 2> /dev/null
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+include() { [[ -f "$1" ]] && source "$1" }
 
 take() { mkdir -p -- "$1" && cd -P -- "$1" }
 
@@ -54,29 +46,36 @@ rf()
 	fi
 }
 
+if [[ $- == *i* ]]
+then
+	include /usr/share/fzf/shell/key-bindings.zsh
+	include /usr/share/doc/fzf/examples/key-bindings.zsh
+	include /usr/share/doc/fzf/examples/completion.zsh
+	include /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+	include /opt/homebrew/opt/fzf/shell/completion.zsh
+fi
+
 alias la="ls -lah"
-alias pip="pip3"
-alias docker="podman"
 alias ta="tmux a -t"
 alias tls="tmux ls"
 alias tn="tmux new -t"
 alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 alias watch="watch "
-alias vi="nvi"
-alias uni="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/unito/magistrale/y1s2/"
-
-#alias todo="$VISUAL $HOME/Documents/todo"
-alias todo="$VISUAL $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/todo"
 
 case "$OSTYPE" in
 	darwin*)
 	alias o="open"
 	alias abrew="arch -x86_64 /usr/local/Homebrew/bin/brew"
+	alias todo="$VISUAL $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/todo"
+	alias uni="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/unito/magistrale/y1s2/"
 	;;
 	linux*)
 	alias o="xdg-open"
 	alias mpv="gnome-session-inhibit mpv"
 	alias webcam="gnome-session-inhibit mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
 	alias zzz="systemctl suspend"
+	alias pbcopy="wl-copy"
+	alias pbpaste="wl-paste"
+	alias todo="$VISUAL $HOME/Documents/todo"
 	;;
 esac
