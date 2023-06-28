@@ -31,11 +31,11 @@ opt.path = vim.opt.path + '**'
 opt.shortmess = opt.shortmess + 'c'
 opt.nrformats = opt.nrformats + 'alpha' + 'octal'
 opt.dictionary = opt.dictionary + '/usr/share/dict/words'
-opt.clipboard = 'unnamedplus'
+--opt.clipboard = 'unnamedplus'
 
 --if os.getenv("TERM_PROGRAM") ~= "Apple_Terminal" then
 --  opt.termguicolors = true
 --  vim.cmd 'colorscheme tokyonight'
 --end
 
-vim.cmd 'syntax off'
+--vim.cmd 'syntax off'

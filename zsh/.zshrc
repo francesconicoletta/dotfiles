@@ -56,26 +56,43 @@ then
 fi
 
 alias la="ls -lah"
+alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 alias ta="tmux a -t"
 alias tls="tmux ls"
 alias tn="tmux new -t"
-alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 alias watch="watch "
+
+awebcam()
+{
+osascript << EOF
+tell application "QuickTime Player"
+  activate
+  set doc to new movie recording
+  repeat until doc's natural dimensions is not {0, 0}
+      delay 0.5
+  end repeat
+  set bounds of window 1 to {963, 621, 1415, 875}
+end tell
+EOF
+}
 
 case "$OSTYPE" in
 	darwin*)
-	alias o="open"
 	alias abrew="arch -x86_64 /usr/local/Homebrew/bin/brew"
+	alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport"
+	alias o="open"
 	alias todo="$VISUAL $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/todo"
 	alias uni="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/unito/magistrale/y1s2/"
+	alias webcam="awebcam"
+	alias zzz="pmset sleepnow"
 	;;
 	linux*)
-	alias o="xdg-open"
 	alias mpv="gnome-session-inhibit mpv"
-	alias webcam="gnome-session-inhibit mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
-	alias zzz="systemctl suspend"
+	alias o="xdg-open"
 	alias pbcopy="wl-copy"
 	alias pbpaste="wl-paste"
 	alias todo="$VISUAL $HOME/Documents/todo"
+	alias webcam="gnome-session-inhibit mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
+	alias zzz="systemctl suspend"
 	;;
 esac
