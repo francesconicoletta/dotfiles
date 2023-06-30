@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# Dock
+defaults write com.apple.dock "autohide" -bool "true"
+defaults write com.apple.dock autohide-time-modifier -float 0.1
+defaults write com.apple.Dock showhidden -bool yes
+killall Dock
+
+# Safari
+defaults write com.apple.safari "ShowFullURLInSmartSearchField" -bool "true"
+killall Safari
+
+# Finder
+defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true"
+defaults write com.apple.finder "ShowPathbar" -bool "true"
+defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv"
+defaults write com.apple.finder "FXDefaultSearchScope" -string "SCcf"
+defaults write NSGlobalDomain "NSToolbarTitleViewRolloverDelay" -float "0"
+killall Finder
+
+# Mission Control
+defaults write com.apple.dock "mru-spaces" -bool "false"
+defaults write com.apple.dock expose-animation-duration -float 0.1
+killall Dock
+
+# TextEdit
+defaults write com.apple.TextEdit "RichText" -bool "false"
+killall TextEdit
+
+# Drag on cmd + click.
+defaults write -g NSWindowShouldDragOnGesture -bool true
+
+# Enable full keyboard access for all controls
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Date format
+defaults write com.apple.menuextra.clock "DateFormat" -string "\"EEE d MMM HH:mm:ss\""
