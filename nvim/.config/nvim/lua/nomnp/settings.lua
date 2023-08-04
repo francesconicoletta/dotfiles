@@ -38,4 +38,4 @@ opt.dictionary = opt.dictionary + '/usr/share/dict/words'
 --  vim.cmd 'colorscheme tokyonight'
 --end
 
---vim.cmd 'syntax off'
+vim.cmd 'syntax off'
