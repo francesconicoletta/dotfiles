@@ -1,0 +1,25 @@
+#!/bin/sh
+set -x
+
+stow_dirs()
+{
+find . -type d -maxdepth 1 -not -path '*/.*' | sed 's/\.\///g' | tail -n +2
+}
+
+case "$1" in
+stow)
+	stow_dirs | xargs -I {} stow --target "$HOME" --verbose {}
+	;;
+dryrun)
+	stow_dirs | xargs -I {} stow --no --target "$HOME" --verbose {}
+	;;
+restow)
+	stow_dirs | xargs -I {} stow --target "$HOME" --verbose --restow {}
+	;;
+unstow)
+	stow_dirs | xargs -I {} stow --target "$HOME" --verbose --delete {}
+	;;
+*)
+	echo "Usage: $0 {stow|dryrun|restow|unstow}"
+	exit 1
+esac
