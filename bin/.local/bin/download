@@ -2,12 +2,6 @@
 
 YOUTUBE_REGEX='^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$'
 
-if echo "$1" | grep -qE "$YOUTUBE_REGEX"; then
-	yt-dlp -o "$HOME/Videos/%(title)s-%(id)s.%(ext)s" "$1"
-else
-	aria2c -x 16 -s 16 -k 1M -d "$HOME/Downloads" "$1";
-fi
-
 notifymacos () {
 osascript -ss - "$1" <<EOF
 on run argv
@@ -19,6 +13,12 @@ EOF
 notifylinux () {
 	notify-send "Download completed" "$1" -u low -i dialog-information
 }
+
+if echo "$1" | grep -qE "$YOUTUBE_REGEX"; then
+	yt-dlp -o "$HOME/Videos/%(title)s-%(id)s.%(ext)s" "$1"
+else
+	aria2c -x 16 -s 16 -k 1M -d "$HOME/Downloads" "$1";
+fi
 
 if [ $? -eq 0 ]; then
 	if [ $(uname) = "Darwin" ]

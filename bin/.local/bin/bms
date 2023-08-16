@@ -1,0 +1,6 @@
+#!/bin/sh
+
+BMS_FILE=${BMS_FILE:-"$HOME/.local/share/bookmarks/bookmarks"}
+if ! [ -e "$BMS_FILE" ]; then exit 1; fi
+BROWSER_COMMAND="open -a Safari"
+< "$BMS_FILE" fzf --bind "enter:become($BROWSER_COMMAND {})"
