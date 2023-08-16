@@ -27,5 +27,7 @@ set undofile
 set completeopt=menuone,noselect
 set path+=**
 set nrformats+=alpha,octal
+set guioptions+=k
 set dictionary+=/usr/share/dict/words
 syntax off
+autocmd BufRead todo set foldmethod=indent | set foldlevel=0
