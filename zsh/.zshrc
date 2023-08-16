@@ -11,9 +11,6 @@ promptinit
 prompt redhat
 
 setopt SHARE_HISTORY
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=1000000
-SAVEHIST=1000000
 
 include() { [[ -f "$1" ]] && source "$1" }
 
@@ -87,6 +84,7 @@ case "$OSTYPE" in
 	alias o="open"
 	alias todo="$VISUAL $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/todo"
 	alias uni="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/unito/magistrale/y1s2/"
+	alias idocs="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents"
 	alias webcam="_webcam"
 	alias zzz="pmset sleepnow"
 	;;
@@ -98,13 +96,5 @@ case "$OSTYPE" in
 	alias todo="$VISUAL $HOME/Documents/todo"
 	alias webcam="gnome-session-inhibit mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
 	alias zzz="systemctl suspend"
-	;;
-	freebsd*)
-	alias o="xdg-open"
-	alias pbcopy="wl-copy"
-	alias pbpaste="wl-paste"
-	alias todo="$VISUAL $HOME/Documents/todo"
-	alias webcam="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
-	alias zzz="doas zzz"
 	;;
 esac

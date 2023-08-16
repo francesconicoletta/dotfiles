@@ -1,6 +1,9 @@
 export EDITOR=vi
 export VISUAL=nvim
 export HOMEBREW_NO_ANALYTICS=1
+export HISTFILE="$HOME"/.zsh_history
+export HISTSIZE=1000000
+export SAVEHIST=1000000
 
 # Redefine XDG Base Directory Specifications for macOS compatibility
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -37,5 +40,4 @@ export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
 export TERMINFO="$XDG_DATA_HOME"/terminfo
 export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
-
 [ -f "$XDG_DATA_HOME/.cargo/env" ] && source "$XDG_DATA_HOME/.cargo/env"
