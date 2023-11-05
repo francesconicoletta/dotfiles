@@ -1,4 +1,3 @@
-"opt.inccommand = 'nosplit'
 set hidden
 set wildmenu
 set wildmode+=list:longest,full
@@ -16,7 +15,6 @@ set tabstop=8
 set softtabstop=8
 set autoindent
 set shiftwidth=8
-"colorcolumn=80
 set undofile
 set incsearch
 set nomodeline
@@ -30,4 +28,9 @@ set nrformats+=alpha,octal
 set guioptions+=k
 set dictionary+=/usr/share/dict/words
 syntax off
-autocmd BufRead todo set foldmethod=indent | set foldlevel=0
+"colorcolumn=80
+
+set backupdir=$HOME/.vim/backupdir
+set directory=$HOME/.vim/backupdir
+set undodir=$HOME/.vim/undodir
+set undofile

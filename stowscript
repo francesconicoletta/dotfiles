@@ -8,6 +8,7 @@ find . -type d -maxdepth 1 -not -path '*/.*' | sed 's/\.\///g' | tail -n +2
 
 case "$1" in
 stow)
+	mkdir -p "$HOME/.config"
 	stow_dirs | xargs -I {} stow --target "$HOME" --verbose {}
 	;;
 dryrun)

@@ -12,8 +12,6 @@ prompt redhat
 
 setopt SHARE_HISTORY
 
-include() { [[ -f "$1" ]] && source "$1" }
-
 take() { mkdir -p -- "$1" && cd -P -- "$1" }
 
 resizeterm()
@@ -43,7 +41,7 @@ rf()
 	fi
 }
 
-_webcam()
+webcam()
 {
 osascript << EOF
 tell application "QuickTime Player"
@@ -56,6 +54,8 @@ tell application "QuickTime Player"
 end tell
 EOF
 }
+
+include() { [[ -f "$1" ]] && source "$1" }
 
 if [[ $- == *i* ]]
 then
@@ -70,31 +70,20 @@ then
 	include /usr/share/fzf/shell/key-bindings.zsh
 fi
 
+alias aautv="source $HOME/.aaut/bin/activate"
+alias abrew="arch -x86_64 /usr/local/Homebrew/bin/brew"
+alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport"
+alias dod="cd $HOME/.local/share/dotfiles"
+alias dw="download"
+alias idocs="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents"
 alias la="ls -lah"
+alias o="open"
 alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 alias ta="tmux a -t"
 alias tls="tmux ls"
 alias tn="tmux new -t"
+alias todo="$VISUAL $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/todo"
+alias uni="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/unito/magistrale/y1s1/"
 alias watch="watch "
-
-case "$OSTYPE" in
-	darwin*)
-	alias abrew="arch -x86_64 /usr/local/Homebrew/bin/brew"
-	alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport"
-	alias o="open"
-	alias todo="$VISUAL $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/todo"
-	alias uni="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/unito/magistrale/y1s2/"
-	alias idocs="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents"
-	alias webcam="_webcam"
-	alias zzz="pmset sleepnow"
-	;;
-	linux*)
-	alias mpv="gnome-session-inhibit mpv"
-	alias o="xdg-open"
-	alias pbcopy="wl-copy"
-	alias pbpaste="wl-paste"
-	alias todo="$VISUAL $HOME/Documents/todo"
-	alias webcam="gnome-session-inhibit mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=30%"
-	alias zzz="systemctl suspend"
-	;;
-esac
+alias zephyr="source ~/Developer/zephyrproject/.venv/bin/activate"
+alias zzz="pmset sleepnow"

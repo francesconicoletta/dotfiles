@@ -1,0 +1,8 @@
+# Install kickstart.nvim
+curl https://raw.githubusercontent.com/nvim-lua/kickstart.nvim/master/init.lua > "$HOME/.config/nvim/init.lua"
+
+# Generate patch
+diff <(curl https://raw.githubusercontent.com/nvim-lua/kickstart.nvim/master/init.lua) "$HOME/.config/nvim/init.lua" > "$HOME/.config/nvim/init.lua.patch"
+
+# Apply patch
+patch "$HOME/.config/nvim/init.lua" < "$HOME/.config/nvim/init.lua.patch"
