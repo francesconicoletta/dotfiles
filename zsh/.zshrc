@@ -14,35 +14,13 @@ setopt SHARE_HISTORY
 
 take() { mkdir -p -- "$1" && cd -P -- "$1" }
 
-resizeterm()
-{
-	readonly height=${1:?"Height not specified"}
-	readonly width=${2:?"Width not specified"}
+resizeterm() {
+	height=${1:?"Height not specified"}
+	width=${2:?"Width not specified"}
 	printf "\e[8;${width};${height}t"
 }
 
-rf()
-{
-	RG_PREFIX="rga --files-with-matches"
-	local file
-	file="$(
-		FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
-			fzf --sort --preview="[[ ! -z {} ]] && rga --pretty \
-				--context 5 {q} {}" \
-				--phony -q "$1" \
-				--bind "change:reload:$RG_PREFIX {q}" \
-				--preview-window="70%:wrap"
-	)" &&
-	echo "opening $file" &&
-	if (( $+commands[xdg-open] )); then
-		xdg-open "$file"
-	else
-		open "$file"
-	fi
-}
-
-webcam()
-{
+webcam() {
 osascript << EOF
 tell application "QuickTime Player"
   activate
@@ -53,6 +31,15 @@ tell application "QuickTime Player"
   set bounds of window 1 to {963, 621, 1415, 875}
 end tell
 EOF
+}
+
+trash() {
+	if [[ $# ]]; then
+		a=()
+		for f in "$@"; do a+=("$(realpath "$f")"); done
+		f=$(printf "\",POSIX FILE \"%s" "${a[@]}")\"
+		osascript -ss -e "tell app \"Finder\" to delete {${f:2}}" 1>/dev/null
+	fi
 }
 
 include() { [[ -f "$1" ]] && source "$1" }
