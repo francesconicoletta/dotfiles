@@ -1,7 +1,7 @@
 <!--
-/Library/LaunchDaemons/com.nomnp.keyboard-remap.plist
-sudo chown root:wheel com.nomnp.keyboard-remap.plist
-sudo launchctl load -w /Library/LaunchDaemons/com.nomnp.keyboard-remap.plist
+~/Library/LaunchAgents/com.nomnp.keyboard-remap.plist
+sudo chown nomnp:staff com.nomnp.keyboard-remap.plist
+launchctl load -w ~/Library/LaunchAgents/com.nomnp.keyboard-remap.plist
 -->
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
