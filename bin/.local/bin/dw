@@ -15,7 +15,12 @@ notifylinux () {
 }
 
 if echo "$1" | grep -qE "$YOUTUBE_REGEX"; then
-	yt-dlp -f bestvideo[ext=mp4]+bestaudio[ext=m4a] -o "$HOME/Movies/%(title)s-%(id)s.%(ext)s" "$1"
+	yt-dlp -S vcodec:h264,res,acodec:m4a \
+		--add-metadata \
+		--embed-subs \
+		--embed-thumbnail \
+		--sponsorblock-remove default \
+		-o "$HOME/Movies/%(title)s-%(id)s.%(ext)s" "$1"
 else
 	aria2c -x 16 -s 16 -k 1M -d "$HOME/Downloads" "$1";
 fi
