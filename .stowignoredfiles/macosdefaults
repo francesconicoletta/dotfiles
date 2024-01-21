@@ -4,6 +4,7 @@
 defaults write com.apple.Dock showhidden -bool yes
 defaults write com.apple.dock "autohide" -bool "true"
 defaults write com.apple.dock autohide-time-modifier -float 0.1
+defaults write com.apple.dock "scroll-to-open" -bool "true"
 killall Dock
 
 # Safari

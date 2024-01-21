@@ -2,32 +2,21 @@
 
 YOUTUBE_REGEX='^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$'
 
-notifymacos () {
-osascript -ss - "$1" <<EOF
-on run argv
-display notification quoted form of item 1 of argv with title "Download completed" sound name "Blow"
-end run
-EOF
-}
+[ $# -eq 0 ] && URL="$(pbpaste)" || URL="$1"
 
-notifylinux () {
-	notify-send "Download completed" "$1" -u low -i dialog-information
-}
-
-if echo "$1" | grep -qE "$YOUTUBE_REGEX"; then
+if echo "$URL" | grep -qE "$YOUTUBE_REGEX"; then
 	yt-dlp -S vcodec:h264,res,acodec:m4a \
 		--add-metadata \
 		--embed-subs \
 		--embed-thumbnail \
 		--sponsorblock-remove default \
-		-o "$HOME/Movies/%(title)s-%(id)s.%(ext)s" "$1"
+		-o "$HOME/Movies/%(title)s-%(id)s.%(ext)s" "$URL"
 else
-	aria2c -x 16 -s 16 -k 1M -d "$HOME/Downloads" "$1";
+	aria2c -x 16 -s 16 -k 1M -d "$HOME/Downloads" "$URL";
 fi
 
-if [ $? -eq 0 ]; then
-	if [ $(uname) = "Darwin" ]
-	then notifymacos "$1"
-	else notifylinux "$1"
-	fi
-fi
+osascript -ss - "$URL" <<EOF
+on run argv
+display notification quoted form of item 1 of argv with title "Download completed" sound name "Blow"
+end run
+EOF
