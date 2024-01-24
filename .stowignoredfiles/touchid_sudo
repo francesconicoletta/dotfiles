@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sudo cp /etc/pam.d/sudo_local.template /etc/pam.d/sudo_local
+sudo sed -i '' '/pam\_tid/s/^#//g' /etc/pam.d/sudo_local
