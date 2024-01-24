@@ -1,28 +1,16 @@
-### Neovim ###
-# Swap
 [._]*.s[a-v][a-z]
 !*.svg  # comment out if you don't need vector files
 [._]*.sw[a-p]
 [._]s[a-rt-v][a-z]
 [._]ss[a-gi-z]
 [._]sw[a-p]
-
-# Session
 Session.vim
 Sessionx.vim
-
-# Temporary
 .netrwhist
 *~
-# Auto-generated tag files
 tags
-# Persistent undo
 [._]*.un~
-
-### Ansible ###
 *.retry
-
-# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -41,13 +29,12 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.icloud
-
 newsboat/.config/newsboat/cache.db*
 newsboat/.config/newsboat/history*
-nvim/.config/nvim/plugin/packer_compiled.lua
 tmux/.config/tmux/plugins/*
 tmux/.config/tmux/resurrect/*
 nvim/.config/nvim/log
+nvim/.config/nvim/lazy-lock.json
 nvim/.config/nvim/spell
 vim/.vim/.netrwhist
 vim/.vim/backupdir

@@ -3,12 +3,14 @@ set -x
 
 stow_dirs()
 {
-find . -type d -maxdepth 1 -not -path '*/.*' | sed 's/\.\///g' | tail -n +2
+find . -maxdepth 1 -type d -not -path '*/.*' | sed 's/\.\///g' | tail -n +2
 }
 
 case "$1" in
 stow)
 	mkdir -p "$HOME/.config"
+	mkdir -p "$HOME/.local/bin"
+	mkdir -p "$HOME/.vim/{backupdir,undodir}"
 	stow_dirs | xargs -I {} stow --target "$HOME" --verbose {}
 	;;
 dryrun)
