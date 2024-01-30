@@ -19,6 +19,7 @@ export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
 export TERMINFO="$XDG_DATA_HOME"/terminfo
 export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
+export ET_NO_TELEMETRY=no
 [ -f "$XDG_DATA_HOME/.cargo/env" ] && source "$XDG_DATA_HOME/.cargo/env"
 
 typeset -U path

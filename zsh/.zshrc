@@ -7,6 +7,14 @@ bindkey ";5D" backward-word
 autoload -U select-word-style && select-word-style bash
 setopt SHARE_HISTORY
 
+autoload -Uz compinit && compinit
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+RPROMPT=\$vcs_info_msg_0_
+zstyle ':vcs_info:git:*' formats '%b'
+
 take() { mkdir -p -- "$1" && cd -P -- "$1" }
 
 resizeterm()
@@ -67,3 +75,6 @@ alias todo="$VISUAL $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Document
 alias uni="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/unito/magistrale/y1s1/"
 alias watch="watch "
 alias zzz="pmset sleepnow"
+
+alias asocks="ssh -D 1337 -f -C -q -N nomnp-thinkpad-t14s-gen-2i"
+alias aet="et -c 'tmux -CC attach || tmux -CC' nomnp-thinkpad-t14s-gen-2i"

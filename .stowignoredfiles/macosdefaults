@@ -1,10 +1,13 @@
 #!/bin/sh
 
 # Dock
-defaults write com.apple.Dock showhidden -bool yes
+defaults write com.apple.dock showhidden -bool "true"
 defaults write com.apple.dock "autohide" -bool "true"
-defaults write com.apple.dock autohide-time-modifier -float 0.1
+defaults write com.apple.dock autohide-time-modifier -float "0"
+defaults write com.apple.dock "autohide-delay" -float "0"
 defaults write com.apple.dock "scroll-to-open" -bool "true"
+defaults write com.apple.dock "tilesize" -int "36"
+defaults write com.apple.dock "autohide-time-modifier" -float "0"
 killall Dock
 
 # Safari
@@ -15,13 +18,13 @@ killall Safari
 defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true"
 defaults write NSGlobalDomain "NSToolbarTitleViewRolloverDelay" -float "0"
 defaults write com.apple.finder "FXDefaultSearchScope" -string "SCcf"
-defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv"
 defaults write com.apple.finder "ShowPathbar" -bool "true"
+defaults write com.apple.finder "ShowHardDrivesOnDesktop" -bool "true"
 killall Finder
 
 # Mission Control
 defaults write com.apple.dock "mru-spaces" -bool "false"
-defaults write com.apple.dock expose-animation-duration -float 0.1
+defaults write NSGlobalDomain "AppleSpacesSwitchOnActivate" -bool "false"
 killall Dock
 
 # TextEdit
@@ -36,3 +39,13 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Date format
 defaults write com.apple.menuextra.clock "DateFormat" -string "\"EEE d MMM HH:mm:ss\""
+
+# Keyboard repeat rate
+defaults read NSGlobalDomain KeyRepeat -int 2
+defaults read NSGlobalDomain InitialKeyRepeat -int 15
+
+# Avoid creating .DS_Store files on network volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool "true"
+
+# Enable the "suck" window minimize animation
+defaults write com.apple.dock mineffect -string suck
