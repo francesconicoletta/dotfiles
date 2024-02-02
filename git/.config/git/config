@@ -11,3 +11,7 @@
 	tool = vimdiff
 [mergetool "vimdiff"]
 	path = nvim
+[alias]
+	adog = log --all --decorate --oneline --graph
+[alias]
+	dog = log --decorate --oneline --graph
