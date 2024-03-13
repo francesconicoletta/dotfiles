@@ -40,3 +40,4 @@ case "$OSTYPE" in
 esac
 
 export PATH
+export FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"

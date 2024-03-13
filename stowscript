@@ -8,6 +8,7 @@ find . -maxdepth 1 -type d -not -path '*/.*' | sed 's/\.\///g' | tail -n +2
 
 case "$1" in
 stow)
+	mkdir -p "$HOME/Developer"
 	mkdir -p "$HOME/.config"
 	mkdir -p "$HOME/.local/bin"
 	mkdir -p "$HOME/.vim/{backupdir,undodir}"

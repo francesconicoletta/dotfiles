@@ -40,8 +40,7 @@ dw()
 
 if echo "$URL" | grep -qE '^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$'; then
 	yt-dlp -S vcodec:h264,res,acodec:m4a --add-metadata --embed-subs \
-		--embed-thumbnail --sponsorblock-remove default \
-		-o "$HOME/Movies/%(title)s-%(id)s.%(ext)s" "$URL"
+		--embed-thumbnail -o "$HOME/Movies/%(title)s-%(id)s.%(ext)s" "$URL"
 else
 	aria2c -x 16 -s 16 -k 1M -d "$HOME/Downloads" "$URL"
 fi
@@ -65,16 +64,15 @@ alias abrew="arch -x86_64 /usr/local/Homebrew/bin/brew"
 alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport"
 alias dod="cd $HOME/.local/share/dotfiles"
 alias dump_net="scutil -d -v --nwi"
+alias gitroot='cd "$(git rev-parse --show-toplevel)"'
 alias idocs="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents"
+alias la="ls -lah"
 alias rg="rg --hidden"
 alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 alias ta="tmux a -t"
 alias tls="tmux ls"
 alias tn="tmux new -t"
 alias todo="$VISUAL $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/todo"
-alias uni="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/unito/magistrale/y1s1/"
+alias uni="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/unito/magistrale/y1s2/"
 alias watch="watch "
 alias zzz="pmset sleepnow"
-
-alias asocks="ssh -D 1337 -f -C -q -N nomnp-thinkpad-t14s-gen-2i"
-alias aet="et -c 'tmux -CC attach || tmux -CC' nomnp-thinkpad-t14s-gen-2i"
