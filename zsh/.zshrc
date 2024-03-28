@@ -60,8 +60,6 @@ then
 	include /opt/homebrew/opt/fzf/shell/key-bindings.zsh
 fi
 
-alias abrew="arch -x86_64 /usr/local/Homebrew/bin/brew"
-alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport"
 alias dod="cd $HOME/.local/share/dotfiles"
 alias dump_net="scutil -d -v --nwi"
 alias gitroot='cd "$(git rev-parse --show-toplevel)"'
