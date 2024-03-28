@@ -32,7 +32,7 @@ defaults write com.apple.TextEdit "RichText" -bool "false"
 killall TextEdit
 
 # Drag on cmd + click.
-defaults write -g NSWindowShouldDragOnGesture -bool true
+defaults write -g NSWindowShouldDragOnGesture -bool "true"
 
 # Enable full keyboard access for all controls
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
