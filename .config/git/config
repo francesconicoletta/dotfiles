@@ -1,0 +1,16 @@
+[user]
+	email = francesconicoletta@nomnp.com
+	name = Francesco Nicoletta Puzzillo
+[init]
+	defaultBranch = master
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[merge]
+	tool = vimdiff
+[mergetool "vimdiff"]
+	path = nvim
+[alias]
+	adog = log --all --decorate --oneline --graph
+	dog = log --decorate --oneline --graph

@@ -1,0 +1,36 @@
+set hidden
+set wildmenu
+set wildmode+=list:longest,full
+set ignorecase
+set smartcase
+set backspace=indent,eol,start
+set nostartofline
+set confirm
+set mouse=a
+set number
+set relativenumber
+set breakindent
+set linebreak
+set tabstop=8
+set softtabstop=8
+set autoindent
+set shiftwidth=8
+set undofile
+set incsearch
+set nomodeline
+set list
+set lcs=tab:>\ ,trail:-
+set foldlevelstart=20
+set undofile
+set completeopt=menuone,noselect
+set path+=**
+set nrformats+=alpha,octal
+set guioptions+=k
+set dictionary+=/usr/share/dict/words
+syntax off
+"colorcolumn=80
+
+set backupdir=$HOME/.vim/backupdir
+set directory=$HOME/.vim/backupdir
+set undodir=$HOME/.vim/undodir
+set undofile
