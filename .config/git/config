@@ -14,3 +14,5 @@
 [alias]
 	adog = log --all --decorate --oneline --graph
 	dog = log --decorate --oneline --graph
+	grep = grep --line-number --show-function --heading --break
+	showtool = "!f() { git difftool $1~1 $1 ${2:-}; }; f"
