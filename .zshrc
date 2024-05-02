@@ -68,13 +68,7 @@ end run
 EOF
 }
 
-include() { [[ -f "$1" ]] && source "$1" }
-
-if [[ $- == *i* ]]
-then
-	include /opt/homebrew/opt/fzf/shell/completion.zsh
-	include /opt/homebrew/opt/fzf/shell/key-bindings.zsh
-fi
+eval "$(fzf --zsh)"
 
 alias dots="/usr/bin/git --git-dir ~/.config/.dotfiles.git --work-tree ~" # https://www.zsh.org/mla/workers/2023/msg00282.html
 alias dump_net="scutil -d -v --nwi"
