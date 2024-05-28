@@ -68,6 +68,15 @@ end run
 EOF
 }
 
+pbfilter()
+{
+if [ $# -gt 0 ]; then
+	pbpaste | "$@" | pbcopy
+else
+	pbpaste | pbcopy
+fi
+}
+
 eval "$(fzf --zsh)"
 
 alias dots="/usr/bin/git --git-dir ~/.config/.dotfiles.git --work-tree ~" # https://www.zsh.org/mla/workers/2023/msg00282.html
