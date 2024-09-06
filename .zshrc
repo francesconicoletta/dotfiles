@@ -72,8 +72,6 @@ pbfilter()
 {
 if [ $# -gt 0 ]; then
 	pbpaste | "$@" | pbcopy
-else
-	pbpaste | pbcopy
 fi
 }
 
@@ -83,6 +81,7 @@ alias dots="/usr/bin/git --git-dir ~/.config/.dotfiles.git --work-tree ~" # http
 alias dump_net="scutil -d -v --nwi"
 alias gitroot='cd "$(git rev-parse --show-toplevel)"'
 alias idocs="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents"
+alias jsonform="pbpaste | jq | pbcopy"
 alias la="ls -lah"
 alias rg="rg --hidden"
 alias rgai="rga --rga-adapters=+pdfpages,tesseract"
@@ -91,6 +90,10 @@ alias temptake="take $(mktemp -d)"
 alias tls="tmux ls"
 alias tn="tmux new -t"
 alias todo="$VISUAL $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/todo"
-alias uni="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/unito/magistrale/y1s2/"
+alias updatedb="/usr/libexec/locate.updatedb"
 alias watch="watch "
 alias zzz="pmset sleepnow"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+eval "$(direnv hook zsh)"
