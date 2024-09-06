@@ -30,7 +30,10 @@ set dictionary+=/usr/share/dict/words
 syntax off
 "colorcolumn=80
 
-set backupdir=$HOME/.vim/backupdir
-set directory=$HOME/.vim/backupdir
-set undodir=$HOME/.vim/undodir
+silent execute '!mkdir -p $HOME/.vim/backupdir/ $HOME/.vim/swp/ $HOME/.vim/undodir/'
+
+" double tailing slash stores files using full paths to avoid file name clashes
+set backupdir=$HOME/.vim/backupdir//
+set directory=$HOME/.vim/swp//
+set undodir=$HOME/.vim/undodir//
 set undofile
