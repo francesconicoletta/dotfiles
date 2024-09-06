@@ -1,5 +1,5 @@
-export EDITOR=vi
-export VISUAL=nvim
+export EDITOR=vim
+export VISUAL=vim
 export DOTFILES_DIR="$HOME/.local/share/dotfiles"
 export HOMEBREW_NO_ANALYTICS=1
 export XDG_CONFIG_HOME="$HOME/.config"
