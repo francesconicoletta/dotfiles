@@ -83,6 +83,7 @@ alias gitroot='cd "$(git rev-parse --show-toplevel)"'
 alias idocs="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents"
 alias jsonform="pbpaste | jq | pbcopy"
 alias la="ls -lah"
+alias mosh="LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8 mosh"
 alias rg="rg --hidden"
 alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 alias ta="tmux a -t"
