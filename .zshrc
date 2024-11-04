@@ -75,7 +75,16 @@ if [ $# -gt 0 ]; then
 fi
 }
 
-eval "$(fzf --zsh)"
+include() { [[ -f "$1" ]] && source "$1" }
+
+if [[ $- == *i* ]]; then
+	eval "$(fzf --zsh)"
+	eval "$(zoxide init zsh)"
+	include "${HOME}/.iterm2_shell_integration.zsh"
+	include "/opt/homebrew/opt/fzf/shell/completion.zsh"
+	include "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
+	include "/opt/homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
+fi
 
 alias dots="/usr/bin/git --git-dir ~/.config/.dotfiles.git --work-tree ~" # https://www.zsh.org/mla/workers/2023/msg00282.html
 alias dump_net="scutil -d -v --nwi"
@@ -94,12 +103,3 @@ alias todo="$VISUAL $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Document
 alias updatedb="/usr/libexec/locate.updatedb"
 alias watch="watch "
 alias zzz="pmset sleepnow"
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
-if [ -f "$HB_CNF_HANDLER" ]; then
-source "$HB_CNF_HANDLER";
-fi
-
-eval "$(zoxide init zsh)"
