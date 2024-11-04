@@ -86,6 +86,7 @@ if [[ $- == *i* ]]; then
 	include "/opt/homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
 fi
 
+alias brew-deep-cleanup="brew cleanup --prune=1 -s"
 alias dots="/usr/bin/git --git-dir ~/.config/.dotfiles.git --work-tree ~" # https://www.zsh.org/mla/workers/2023/msg00282.html
 alias dump_net="scutil -d -v --nwi"
 alias gitroot='cd "$(git rev-parse --show-toplevel)"'
