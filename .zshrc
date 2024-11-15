@@ -6,13 +6,14 @@ bindkey ";5C" forward-word
 bindkey ";5D" backward-word
 autoload -U select-word-style && select-word-style bash
 
-autoload -Uz compinit && compinit -u
 autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-RPROMPT=\$vcs_info_msg_0_
-zstyle ':vcs_info:git:*' formats '%b'
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '%b '
+setopt PROMPT_SUBST
+PROMPT='%* %~ ${vcs_info_msg_0_}$ '
+
+zstyle ':completion:*:make:*:targets' call-command true
+zstyle ':completion:*:*:make:*' tag-order 'targets'
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
