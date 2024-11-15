@@ -32,51 +32,53 @@ setopt APPEND_HISTORY        # append to history file (Default)
 setopt HIST_NO_STORE         # Don't store history commands
 setopt HIST_REDUCE_BLANKS    # Remove superfluous blanks from each command line being added to the history.
 
-take() { mkdir -p -- "$1" && cd -P -- "$1" }
+take() { mkdir -p -- "$1" && cd -P -- "$1"; }
 
-resizeterm()
-{
-height=${1:?"Height not specified"}
-width=${2:?"Width not specified"}
-printf "\e[8;${width};${height}t"
+resizeterm() {
+	height=${1:?"Height not specified"}
+	width=${2:?"Width not specified"}
+	printf "\e[8;${width};${height}t"
 }
 
-trash()
-{
-if [[ $# ]]; then
-	a=()
-	for f in "$@"; do a+=("$(realpath "$f")"); done
-	f=$(printf "\",POSIX FILE \"%s" "${a[@]}")\"
-	osascript -ss -e "tell app \"Finder\" to delete {${f:2}}" 1>/dev/null
-fi
+trash() {
+	if [[ $# ]]; then
+		a=()
+		for f in "$@"; do a+=("$(realpath "$f")"); done
+		f=$(printf "\",POSIX FILE \"%s" "${a[@]}")\"
+		osascript -ss -e "tell app \"Finder\" to delete {${f:2}}" 1>/dev/null
+	fi
 }
 
-dw()
-{
-[ $# -eq 0 ] && URL="$(pbpaste)" || URL="$1"
+dw() {
+	[ $# -eq 0 ] && URL="$(pbpaste)" || URL="$1"
 
-if echo "$URL" | grep -qE '^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$'; then
-	yt-dlp -S vcodec:h264,res,acodec:m4a --add-metadata --embed-subs \
-		--embed-thumbnail -o "$HOME/Movies/%(title)s-%(id)s.%(ext)s" "$URL"
-else
-	aria2c -x 16 -s 16 -k 1M -d "$HOME/Downloads" "$URL"
-fi
+	if echo "$URL" | grep -qE '^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$'; then
+		yt-dlp -S vcodec:h264,res,acodec:m4a --add-metadata --embed-subs \
+			--embed-thumbnail -o "$HOME/Movies/%(title)s-%(id)s.%(ext)s" "$URL"
+	else
+		aria2c -x 16 -s 16 -k 1M -d "$HOME/Downloads" "$URL"
+	fi
 
-osascript -ss - "$?" "$URL" <<EOF
+	osascript -ss - "$?" "$URL" <<EOF
 on run argv
 display notification "Exit code " & item 1 of argv with title item 2 of argv sound name "Blow"
 end run
 EOF
 }
 
-pbfilter()
-{
-if [ $# -gt 0 ]; then
-	pbpaste | "$@" | pbcopy
-fi
+pbfilter() {
+	if [ $# -gt 0 ]; then
+		pbpaste | "$@" | pbcopy
+	fi
 }
 
-include() { [[ -f "$1" ]] && source "$1" }
+attach() {
+        SESSION_DIR="$HOME/.local/share/"
+        SOCKET="session.sock"
+        dtach -A "${SESSION_DIR}/${SOCKET}" -z "$SHELL"
+}
+
+include() { [[ -f "$1" ]] && source "$1"; }
 
 if [[ $- == *i* ]]; then
 	eval "$(fzf --zsh)"
