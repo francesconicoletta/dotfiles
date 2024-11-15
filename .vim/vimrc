@@ -7,8 +7,8 @@ set backspace=indent,eol,start
 set nostartofline
 set confirm
 set mouse=a
-set number
-set relativenumber
+" set number
+" set relativenumber
 set breakindent
 set linebreak
 set tabstop=8
@@ -27,8 +27,11 @@ set path+=**
 set nrformats+=alpha,octal
 set guioptions+=k
 set dictionary+=/usr/share/dict/words
-syntax off
+syntax on
+set hlsearch
 "colorcolumn=80
+
+filetype plugin indent on
 
 silent execute '!mkdir -p $HOME/.vim/backupdir/ $HOME/.vim/swp/ $HOME/.vim/undodir/'
 
@@ -37,3 +40,17 @@ set backupdir=$HOME/.vim/backupdir//
 set directory=$HOME/.vim/swp//
 set undodir=$HOME/.vim/undodir//
 set undofile
+
+autocmd FileType gitcommit set textwidth=72
+autocmd FileType gitcommit set colorcolumn=73
+
+map <F3> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+map <F5> :put =strftime(\"%c\")<CR>
+
+set omnifunc=syntaxcomplete#Complete
+
+" fix for slow startuptime on Tmux
+call serverlist()
+
+let g:markdown_folding = 1
