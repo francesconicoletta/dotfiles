@@ -51,8 +51,11 @@ trash() {
 
 dw() {
 	[ $# -eq 0 ] && URL="$(pbpaste)" || URL="$1"
+	YOUTUBE_REGEX='^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$'
+	INSTAGRAM_REGEX='(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/(\w+)'
+	TIKTOK_REGEX='^.*https:\/\/(?:m|www|vm)?\.?tiktok\.com\/((?:.*\b(?:(?:usr|v|embed|user|video)\/|\?shareId=|\&item_id=)(\d+))|\w+)'
 
-	if echo "$URL" | grep -qE '^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$'; then
+	if echo "$URL" | grep -qE -e "$YOUTUBE_REGEX" -e "$INSTAGRAM_REGEX" -e "$TIKTOK_REGEX"; then
 		yt-dlp -S vcodec:h264,res,acodec:m4a --add-metadata --embed-subs \
 			--embed-thumbnail -o "$HOME/Movies/%(title)s-%(id)s.%(ext)s" "$URL"
 	else
