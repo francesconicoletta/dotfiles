@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+
+import sys
+import subprocess
+import re
+import os
+
+def main():
+    if len(sys.argv) == 1:
+        try:
+            URL = subprocess.check_output(['pbpaste'], text=True).strip()
+        except subprocess.CalledProcessError:
+            print("Error: No URL provided and clipboard is empty.")
+            sys.exit(1)
+    else:
+        URL = sys.argv[1]
+
+    YOUTUBE_REGEX = r'^(https?://)?(www\.)?(youtube\.com|youtu\.?be)/.+$'
+    INSTAGRAM_REGEX = r'(?:(?:http|https)://)?(?:www\.)?(?:instagram\.com|instagr\.am|instagr\.com)/(\w+)'
+    TIKTOK_REGEX = r'^.*https://(?:m|www|vm)?\.?tiktok\.com/((?:.*\b(?:usr|v|embed|user|video)/|\?shareId=|\&item_id=)(\d+)|\w+)'
+
+    if (re.search(YOUTUBE_REGEX, URL) or
+        re.search(INSTAGRAM_REGEX, URL) or
+        re.search(TIKTOK_REGEX, URL)):
+        cmd = [
+            'yt-dlp',
+            '-S', 'vcodec:h264,res,acodec:m4a',
+            '--add-metadata',
+            '--embed-subs',
+            '--embed-thumbnail',
+            '-o', f"{os.environ['HOME']}/Movies/%(title)s-%(id)s.%(ext)s",
+            URL
+        ]
+    else:
+        cmd = [
+            'aria2c',
+            '-x', '16',
+            '-s', '16',
+            '-k', '1M',
+            '-d', f"{os.environ['HOME']}/Downloads",
+            URL
+        ]
+
+    result = subprocess.run(cmd)
+    exit_code = result.returncode
+
+    osascript_cmd = f'''
+    on run argv
+        display notification "Exit code {exit_code}" with title "{URL}" sound name "Blow"
+    end run
+    '''
+    subprocess.run(['osascript', '-ss', '-'], input=osascript_cmd.encode('utf-8'))
+
+if __name__ == '__main__':
+    main()
