@@ -54,3 +54,6 @@ set omnifunc=syntaxcomplete#Complete
 call serverlist()
 
 let g:markdown_folding = 1
+
+" preview quickfix list item
+autocmd FileType qf nnoremap <silent> <buffer> o <CR><C-w>p
