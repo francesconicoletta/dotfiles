@@ -1,6 +1,5 @@
 if status is-interactive
 	alias brew-deep-cleanup="brew cleanup --prune=1 -s"
-	alias dots="/usr/bin/git --git-dir ~/.config/.dotfiles.git --work-tree ~"
 	alias dump_net="scutil -d -v --nwi"
 	alias gitroot='cd "$(git rev-parse --show-toplevel)"'
 	alias idocs="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents"
@@ -62,4 +61,8 @@ if status is-interactive
 	zoxide init fish | source
 	source "$HOME/.iterm2_shell_integration.fish"
 	source "/opt/homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.fish"
+
+	function dots -w git -d "Manages dotfiles"
+		git --git-dir=$HOME/.config/.dotfiles.git --work-tree=$HOME $argv
+	end
 end
