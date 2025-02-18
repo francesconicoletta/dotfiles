@@ -65,3 +65,14 @@ let g:markdown_folding = 1
 
 " preview quickfix list item
 autocmd FileType qf nnoremap <silent> <buffer> o <CR><C-w>p
+
+" Make * and # work on visual mode
+function! g:VSetSearch(cmdtype)
+	let temp = @s
+	norm! gv"sy
+	let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+	let @s = temp
+endfunction
+
+xnoremap * :<C-u>call g:VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call g:VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
