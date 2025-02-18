@@ -44,8 +44,16 @@ set undofile
 autocmd FileType gitcommit set textwidth=72
 autocmd FileType gitcommit set colorcolumn=73
 
+if executable("rg")
+	set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
+	set grepformat=%f:%l:%c:%m
+	map <F4> :execute "silent grep " . expand("<cword>") <Bar> cw<CR>
+else
+	map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+endif
+
+" Switch to header file
 map <F3> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 map <F5> :put =strftime(\"%c\")<CR>
 
 set omnifunc=syntaxcomplete#Complete
