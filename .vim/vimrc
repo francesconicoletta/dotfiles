@@ -1,3 +1,5 @@
+let mapleader = " "
+
 set hidden
 set wildmenu
 set wildmode+=list:longest,full
@@ -7,8 +9,8 @@ set backspace=indent,eol,start
 set nostartofline
 set confirm
 set mouse=a
-" set number
-" set relativenumber
+"set number
+"set relativenumber
 set breakindent
 set linebreak
 set tabstop=8
@@ -22,20 +24,20 @@ set list
 set lcs=tab:>\ ,trail:-
 set foldlevelstart=20
 set undofile
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,preview,noselect,noinsert
 set path+=**
 set nrformats+=alpha,octal
 set guioptions+=k
 set dictionary+=/usr/share/dict/words
 syntax on
 set hlsearch
-"colorcolumn=80
-
+set omnifunc=syntaxcomplete#Complete,ale#completion#OmniFunc
 filetype plugin indent on
+"colorcolumn=80
 
 silent execute '!mkdir -p $HOME/.vim/backupdir/ $HOME/.vim/swp/ $HOME/.vim/undodir/'
 
-" double tailing slash stores files using full paths to avoid file name clashes
+" Double tailing slash stores files using full paths to avoid file name clashes
 set backupdir=$HOME/.vim/backupdir//
 set directory=$HOME/.vim/swp//
 set undodir=$HOME/.vim/undodir//
@@ -45,25 +47,20 @@ autocmd FileType gitcommit set textwidth=72
 autocmd FileType gitcommit set colorcolumn=73
 
 if executable("rg")
-	set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
+	set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --glob\ '!.git/*'\ --glob\ '!tags'
 	set grepformat=%f:%l:%c:%m
-	map <F4> :execute "silent grep " . expand("<cword>") <Bar> cw<CR>
+	map <leader>sw :execute "silent grep " . expand("<cword>") <Bar> cw<CR>
 else
-	map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+	map <leader>sw :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 endif
 
 " Switch to header file
-map <F3> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-map <F5> :put =strftime(\"%c\")<CR>
+map <leader>gh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 
-set omnifunc=syntaxcomplete#Complete
-
-" fix for slow startuptime on Tmux
+" Fix for slow startup time on Tmux
 call serverlist()
 
-let g:markdown_folding = 1
-
-" preview quickfix list item
+" Preview quickfix list item
 autocmd FileType qf nnoremap <silent> <buffer> o <CR><C-w>p
 
 " Make * and # work on visual mode
@@ -76,3 +73,110 @@ endfunction
 
 xnoremap * :<C-u>call g:VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call g:VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
+
+" Install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+  \| endif
+
+" Plugin list
+call plug#begin()
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'dense-analysis/ale'
+Plug 'airblade/vim-gitgutter'
+Plug 'sheerun/vim-polyglot'
+call plug#end()
+
+" FZF make quickfix list
+" CTRL-A CTRL-Q to select all and build quickfix list
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+
+" ALE settings
+let g:ale_completion_enabled = 1
+let g:ale_sign_column_always = 1
+
+" Virtual text settings
+let g:ale_virtualtext_cursor = 1
+let g:ale_virtualtext_prefix = '❯ '
+
+" Hover settings
+let g:ale_hover_to_preview = 1
+
+" Set default fixers
+let g:ale_fixers = {
+	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+	\ 'javascript': ['prettier', 'eslint'],
+	\ 'typescript': ['prettier', 'eslint'],
+	\ 'python': ['black', 'isort'],
+	\ 'rust': ['rustfmt'],
+	\ 'go': ['gofmt', 'goimports'],
+	\}
+
+" Set default linters
+let g:ale_linters = {
+	\ 'python': ['pylsp', 'flake8'],
+	\ 'javascript': ['eslint', 'tsserver'],
+	\ 'typescript': ['eslint', 'tsserver'],
+	\ 'rust': ['analyzer'],
+	\ 'go': ['gopls'],
+	\ 'vim': ['vimls'],
+	\}
+
+" LSP configuration
+let g:ale_lsp_suggestions = 1
+let g:ale_floating_preview = 1
+let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
+let g:ale_rust_ignore_error_codes = ['E0432', 'E0433']
+
+" Performance settings
+let g:ale_lint_delay = 200
+let g:ale_cache_executable_check = 1
+
+" Buffer settings
+let g:ale_set_balloons = 1
+let g:ale_close_preview_on_insert = 1
+
+" Keep the sign column consistent
+let g:ale_sign_highlight_linenrs = 1
+
+" Completion settings
+let g:ale_completion_delay = 100
+let g:ale_completion_max_suggestions = 50
+
+" LSP specific mappings
+nmap <silent> gd <Plug>(ale_go_to_definition)
+nmap <silent> gy <Plug>(ale_go_to_type_definition)
+nmap <silent> gr <Plug>(ale_find_references)
+nmap <silent> K <Plug>(ale_hover)
+nmap <silent> <leader>rn <Plug>(ale_rename)
+nmap <silent> <leader>ca <Plug>(ale_code_action)
+
+" Diagnostics navigation
+nmap <silent> [d <Plug>(ale_previous_wrap)
+nmap <silent> ]d <Plug>(ale_next_wrap)
+
+" Show diagnostics in floating window
+nmap <silent> <leader>d :ALEDetail<CR>
