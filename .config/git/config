@@ -4,13 +4,14 @@
 [init]
 	defaultBranch = master
 [diff]
-	tool = vimdiff
+	algorithm = histogram
+	colorMoved = default
+	mnemonicPrefix = true
+	renames = true
 [difftool]
 	prompt = false
 [merge]
 	tool = vimdiff
-[mergetool "vimdiff"]
-	path = nvim
 [alias]
 	adog = log --all --decorate --oneline --graph
 	dog = log --decorate --oneline --graph
@@ -22,5 +23,5 @@
 [commit]
 	verbose = true
 [absorb]
-    maxStack = 50
-    oneFixupPerCommit = true
+	maxStack = 50
+	oneFixupPerCommit = true
