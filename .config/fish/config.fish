@@ -1,21 +1,4 @@
 if status is-interactive
-	alias brew-deep-cleanup="brew cleanup --prune=1 -s"
-	alias dump_net="scutil -d -v --nwi"
-	alias gitroot='cd "$(git rev-parse --show-toplevel)"'
-	alias idocs="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents"
-	alias jsonform="pbpaste | jq | pbcopy"
-	alias la="ls -lah"
-	alias mosh="LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8 mosh"
-	alias rg="rg --hidden"
-	alias rgai="rga --rga-adapters=+pdfpages,tesseract"
-	alias ta="tmux a -t"
-	alias temptake="take $(mktemp -d)"
-	alias tls="tmux ls"
-	alias tn="tmux new -t"
-	alias updatedb="/usr/libexec/locate.updatedb"
-	alias watch="watch "
-	alias zzz="pmset sleepnow"
-
 	set -x EDITOR vim
 	set -x VISUAL vim
 	set -x DOTFILES_DIR "$HOME/.local/share/dotfiles"
@@ -41,6 +24,11 @@ if status is-interactive
 	set -g fish_greeting ""
 	bind \cx\ce edit_command_buffer
 
+	fish_add_path "/opt/homebrew/opt/llvm/bin"
+	fish_add_path "$HOME/.local/bin"
+	fish_add_path "/opt/homebrew/opt/fzf/bin"
+	fish_add_path "/opt/homebrew/opt/ccache/libexec"
+
 	function take
 		mkdir -p -- "$argv[1]"
 		cd -- "$argv[1]"
@@ -52,17 +40,45 @@ if status is-interactive
 		end
 	end
 
-	fish_add_path "/opt/homebrew/opt/llvm/bin"
-	fish_add_path "$HOME/.local/bin"
-	fish_add_path "/opt/homebrew/opt/fzf/bin"
-	fish_add_path "/opt/homebrew/opt/ccache/libexec"
+	function dots -w git -d "Manages dotfiles"
+		git --git-dir=$HOME/.config/.dotfiles.git --work-tree=$HOME $argv
+	end
+
+	alias brew-deep-cleanup="brew cleanup --prune=1 -s"
+	alias dump_net="scutil -d -v --nwi"
+	alias gitroot='cd "$(git rev-parse --show-toplevel)"'
+	alias idocs="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents"
+	alias jsonform="pbpaste | jq | pbcopy"
+	alias la="ls -lah"
+	alias mosh="LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8 mosh"
+	alias rg="rg --hidden"
+	alias rgai="rga --rga-adapters=+pdfpages,tesseract"
+	alias ta="tmux a -t"
+	alias temptake="take $(mktemp -d)"
+	alias tls="tmux ls"
+	alias tn="tmux new -t"
+	alias updatedb="/usr/libexec/locate.updatedb"
+	alias watch="watch "
+	alias zzz="pmset sleepnow"
+
+	abbr --add ga --position command git add
+	abbr --add gc --position command git commit -s
+	abbr --add gca --position command git commit -s --amend
+	abbr --add gd --position command git diff
+	abbr --add gdo --position command git dog abbr --add gsw git switch
+	abbr --add gds --position command git diff --staged
+	abbr --add ggr --position command --set-cursor git grep -inp \'%\'
+	abbr --add gjd --position command git jump diff
+	abbr --add gjg --position command --set-cursor git jump grep \'%\'
+	abbr --add gjm --position command git jump merge
+	abbr --add gl --position command git log
+	abbr --add glo --position command git log --oneline
+	abbr --add gs --position command git status
+	abbr --add gst --position command git stash
 
 	fzf --fish | source
 	zoxide init fish | source
 	source "$HOME/.iterm2_shell_integration.fish"
 	source "/opt/homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.fish"
 
-	function dots -w git -d "Manages dotfiles"
-		git --git-dir=$HOME/.config/.dotfiles.git --work-tree=$HOME $argv
-	end
 end
