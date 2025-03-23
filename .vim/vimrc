@@ -9,8 +9,6 @@ set backspace=indent,eol,start
 set nostartofline
 set confirm
 set mouse=a
-"set number
-"set relativenumber
 set breakindent
 set linebreak
 set tabstop=8
@@ -21,7 +19,7 @@ set undofile
 set incsearch
 set nomodeline
 set list
-set lcs=tab:>\ ,trail:-
+set lcs=tab:»\ ,trail:·
 set foldlevelstart=20
 set undofile
 set completeopt=menu,menuone,preview,noselect,noinsert
@@ -29,11 +27,14 @@ set path+=**
 set nrformats+=alpha,octal
 set guioptions+=k
 set dictionary+=/usr/share/dict/words
-syntax on
 set hlsearch
-set omnifunc=syntaxcomplete#Complete,ale#completion#OmniFunc
+set number
+set relativenumber
+set omnifunc=ale#completion#OmniFunc
+colo wildcharm
+
+syntax on
 filetype plugin indent on
-"colorcolumn=80
 
 silent execute '!mkdir -p $HOME/.vim/backupdir/ $HOME/.vim/swp/ $HOME/.vim/undodir/'
 
@@ -95,8 +96,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'dense-analysis/ale'
 Plug 'airblade/vim-gitgutter'
-Plug 'sheerun/vim-polyglot'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'preservim/nerdtree'
 call plug#end()
 
 " FZF make quickfix list
@@ -117,67 +118,36 @@ let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
 " ALE settings
 let g:ale_completion_enabled = 1
+let g:ale_completion_autoimport = 1
 let g:ale_sign_column_always = 1
-
-" Virtual text settings
 let g:ale_virtualtext_cursor = 1
 let g:ale_virtualtext_prefix = '❯ '
-
-" Hover settings
 let g:ale_hover_to_preview = 1
-
-" Set default fixers
-let g:ale_fixers = {
-	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
-	\ 'javascript': ['prettier', 'eslint'],
-	\ 'typescript': ['prettier', 'eslint'],
-	\ 'python': ['black', 'isort'],
-	\ 'rust': ['rustfmt'],
-	\ 'go': ['gofmt', 'goimports'],
-	\}
-
-" Set default linters
-let g:ale_linters = {
-	\ 'python': ['pylsp', 'flake8'],
-	\ 'javascript': ['eslint', 'tsserver'],
-	\ 'typescript': ['eslint', 'tsserver'],
-	\ 'rust': ['analyzer'],
-	\ 'go': ['gopls'],
-	\ 'vim': ['vimls'],
-	\}
-
-" LSP configuration
 let g:ale_lsp_suggestions = 1
 let g:ale_floating_preview = 1
 let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
 let g:ale_rust_ignore_error_codes = ['E0432', 'E0433']
-
-" Performance settings
 let g:ale_lint_delay = 200
 let g:ale_cache_executable_check = 1
-
-" Buffer settings
 let g:ale_set_balloons = 1
 let g:ale_close_preview_on_insert = 1
-
-" Keep the sign column consistent
 let g:ale_sign_highlight_linenrs = 1
-
-" Completion settings
 let g:ale_completion_delay = 100
 let g:ale_completion_max_suggestions = 50
 
-" LSP specific mappings
 nmap <silent> gd <Plug>(ale_go_to_definition)
 nmap <silent> gy <Plug>(ale_go_to_type_definition)
 nmap <silent> gr <Plug>(ale_find_references)
 nmap <silent> K <Plug>(ale_hover)
 nmap <silent> <leader>rn <Plug>(ale_rename)
 nmap <silent> <leader>ca <Plug>(ale_code_action)
-
-" Diagnostics navigation
 nmap <silent> [d <Plug>(ale_previous_wrap)
 nmap <silent> ]d <Plug>(ale_next_wrap)
-
-" Show diagnostics in floating window
 nmap <silent> <leader>d :ALEDetail<CR>
+
+nnoremap <leader>e :NERDTreeToggle<CR>
+
+nnoremap <left> <cmd>vertical resize +2<CR>
+nnoremap <right> <cmd>vertical resize -2<CR>
+nnoremap <down> <cmd>horizontal resize +2<CR>
+nnoremap <up> <cmd>horizontal resize -2<CR>
