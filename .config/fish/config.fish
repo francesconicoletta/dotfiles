@@ -1,23 +1,26 @@
 if status is-interactive
-	set -x EDITOR vim
-	set -x VISUAL vim
-	set -x DOTFILES_DIR "$HOME/.local/share/dotfiles"
-	set -x HOMEBREW_NO_ANALYTICS 1
-	set -x XDG_CONFIG_HOME "$HOME/.config"
-	set -x XDG_CACHE_HOME "$HOME/.cache"
-	set -x XDG_DATA_HOME "$HOME/.local/share"
-	set -x XDG_STATE_HOME "$HOME/.local/state"
-	set -x NPM_CONFIG_USERCONFIG "$XDG_CONFIG_HOME/npm/npmrc"
-	set -x CONDARC "$XDG_CONFIG_HOME/conda/condarc"
-	set -x RUSTUP_HOME "$XDG_DATA_HOME/rustup"
-	set -x CARGO_HOME "$XDG_DATA_HOME/cargo"
-	set -x GNUPGHOME "$XDG_DATA_HOME/gnupg"
-	set -x IPYTHONDIR "$XDG_CONFIG_HOME/ipython"
-	set -x JUPYTER_CONFIG_DIR "$XDG_CONFIG_HOME/jupyter"
-	set -x TERMINFO "$XDG_DATA_HOME/terminfo"
-	set -x TERMINFO_DIRS "$XDG_DATA_HOME/terminfo:/usr/share/terminfo"
-	set -x LESSHISTFILE "$XDG_CACHE_HOME/less/history"
-	set -x ET_NO_TELEMETRY no
+	set -Ux EDITOR vim
+	set -Ux VISUAL vim
+	set -gx DOTFILES_DIR "$HOME/.local/share/dotfiles"
+	set -gx HOMEBREW_NO_ANALYTICS 1
+	set -gx XDG_CONFIG_HOME "$HOME/.config"
+	set -gx XDG_CACHE_HOME "$HOME/.cache"
+	set -gx XDG_DATA_HOME "$HOME/.local/share"
+	set -gx XDG_STATE_HOME "$HOME/.local/state"
+	set -gx NPM_CONFIG_USERCONFIG "$XDG_CONFIG_HOME/npm/npmrc"
+	set -gx CONDARC "$XDG_CONFIG_HOME/conda/condarc"
+	set -gx RUSTUP_HOME "$XDG_DATA_HOME/rustup"
+	set -gx CARGO_HOME "$XDG_DATA_HOME/cargo"
+	set -gx GNUPGHOME "$XDG_DATA_HOME/gnupg"
+	set -gx IPYTHONDIR "$XDG_CONFIG_HOME/ipython"
+	set -gx JUPYTER_CONFIG_DIR "$XDG_CONFIG_HOME/jupyter"
+	set -gx TERMINFO "$XDG_DATA_HOME/terminfo"
+	set -gx TERMINFO_DIRS "$XDG_DATA_HOME/terminfo:/usr/share/terminfo"
+	set -gx LESSHISTFILE "$XDG_CACHE_HOME/less/history"
+	set -gx ET_NO_TELEMETRY no
+	set -gx GOPATH "$HOME/.local/share/go"
+	set -x ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX "YES"
+
 	[ -f "$XDG_DATA_HOME/.cargo/env" ] && source "$XDG_DATA_HOME/.cargo/env"
 
 	eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -50,7 +53,7 @@ if status is-interactive
 	alias idocs="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/Documents"
 	alias jsonform="pbpaste | jq | pbcopy"
 	alias la="ls -lah"
-	alias mosh="LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8 mosh"
+	alias mosh="LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8 /opt/homebrew/bin/mosh"
 	alias rg="rg --hidden"
 	alias rgai="rga --rga-adapters=+pdfpages,tesseract"
 	alias ta="tmux a -t"
@@ -60,6 +63,9 @@ if status is-interactive
 	alias updatedb="/usr/libexec/locate.updatedb"
 	alias watch="watch "
 	alias zzz="pmset sleepnow"
+	alias sync-photos="rsync --progress -e 'ssh -p23' --recursive ~/Pictures/Photo\ Library photo-storage:/home"
+	alias fetch-clip="ssh 192.168.1.32 'cat ~/pbcopy' | pbcopy"
+	alias autossh="/opt/homebrew/bin/autossh -M 0"
 
 	abbr --add ga --position command git add
 	abbr --add gc --position command git commit -s
@@ -75,10 +81,11 @@ if status is-interactive
 	abbr --add glo --position command git log --oneline
 	abbr --add gs --position command git status
 	abbr --add gst --position command git stash
+	abbr --add fd --position command --set-cursor find . -iname \'\*%\*\'
 
 	fzf --fish | source
 	zoxide init fish | source
-	source "$HOME/.iterm2_shell_integration.fish"
-	source "/opt/homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.fish"
+	source "/opt/homebrew/Library/Homebrew/command-not-found/handler.fish"
 
+	set -x SSH_AUTH_SOCK /Users/nomnp/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
 end

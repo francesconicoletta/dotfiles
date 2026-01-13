@@ -2,7 +2,7 @@ let mapleader = " "
 
 set hidden
 set wildmenu
-set wildmode+=list:longest,full
+set wildmode+=longest,full
 set ignorecase
 set smartcase
 set backspace=indent,eol,start
@@ -18,22 +18,24 @@ set shiftwidth=8
 set undofile
 set incsearch
 set nomodeline
-set list
-set lcs=tab:»\ ,trail:·
+"set list
+set lcs=nbsp:␣,eol:↲,tab:»\ ,trail:·,extends:›,precedes:‹,space:·
 set foldlevelstart=20
 set undofile
 set completeopt=menu,menuone,preview,noselect,noinsert
 set path+=**
-set nrformats+=alpha,octal
+set nrformats+=alpha
 set guioptions+=k
 set dictionary+=/usr/share/dict/words
 set hlsearch
-set number
-set relativenumber
-set omnifunc=ale#completion#OmniFunc
-colo wildcharm
+" set number
+" set relativenumber
+" set termguicolors
 
-syntax on
+if has('nvim') || (v:version == 802 && has('patch4325')) || v:version > 802
+  set wildoptions+=pum
+endif
+
 filetype plugin indent on
 
 silent execute '!mkdir -p $HOME/.vim/backupdir/ $HOME/.vim/swp/ $HOME/.vim/undodir/'
@@ -47,107 +49,144 @@ set undofile
 autocmd FileType gitcommit set textwidth=72
 autocmd FileType gitcommit set colorcolumn=73
 
-if executable("rg")
-	set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --glob\ '!.git/*'\ --glob\ '!tags'
-	set grepformat=%f:%l:%c:%m
-	map <leader>sw :execute "silent grep " . expand("<cword>") <Bar> cw<CR>
-else
-	map <leader>sw :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
-endif
-
-" Switch to header file
-map <leader>gh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-
 " Fix for slow startup time on Tmux
 call serverlist()
 
-" Preview quickfix list item
-autocmd FileType qf nnoremap <silent> <buffer> o <CR><C-w>p
+" Git grep to quickfix list
+command -nargs=+ Ggr execute 'Ggrep! -q' <q-args>
 
-" Make * and # work on visual mode
-function! g:VSetSearch(cmdtype)
-	let temp = @s
-	norm! gv"sy
-	let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
-	let @s = temp
-endfunction
+nnoremap <Up> :resize -2<CR>
+nnoremap <Down> :resize +2<CR>
+nnoremap <Left> :vertical resize -2<CR>
+nnoremap <Right> :vertical resize +2<CR>
+noremap <F6> :set list!<CR>
+inoremap <F6> <C-o>:set list!<CR>
+cnoremap <F6> <C-c>:set list!<CR>
+syntax off
 
-xnoremap * :<C-u>call g:VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
-xnoremap # :<C-u>call g:VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
-
-" Install vim-plug if not found
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" obsession.vim - Continuously updated session files
+if exists("g:loaded_obsession") || v:version < 704 || &cp
+  finish
 endif
+let g:loaded_obsession = 1
 
-" Run PlugInstall if there are missing plugins
-autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \| PlugInstall --sync | source $MYVIMRC
-  \| endif
+command! -bar -bang -complete=file -nargs=? Obsession
+      \ execute s:dispatch(<bang>0, <q-args>)
 
-" Plugin list
-call plug#begin()
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'dense-analysis/ale'
-Plug 'airblade/vim-gitgutter'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'preservim/nerdtree'
-call plug#end()
-
-" FZF make quickfix list
-" CTRL-A CTRL-Q to select all and build quickfix list
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
+function! s:dispatch(bang, file) abort
+  let session = get(g:, 'this_obsession', v:this_session)
+  try
+    if a:bang && empty(a:file) && filereadable(session)
+      echo 'Deleting session in '.fnamemodify(session, ':~:.')
+      call delete(session)
+      unlet! g:this_obsession
+      return ''
+    elseif empty(a:file) && exists('g:this_obsession')
+      echo 'Pausing session in '.fnamemodify(session, ':~:.')
+      unlet g:this_obsession
+      return ''
+    elseif empty(a:file) && !empty(session)
+      let file = session
+    elseif empty(a:file)
+      let file = getcwd() . '/Session.vim'
+    elseif isdirectory(a:file)
+      let file = substitute(fnamemodify(expand(a:file), ':p'), '[\/]$', '', '')
+            \ . '/Session.vim'
+    else
+      let file = fnamemodify(expand(a:file), ':p')
+    endif
+    if !a:bang
+      \ && file !~# 'Session\.vim$'
+      \ && filereadable(file)
+      \ && getfsize(file) > 0
+      \ && readfile(file, '', 1)[0] !=# 'let SessionLoad = 1'
+      return 'mksession '.fnameescape(file)
+    endif
+    let g:this_obsession = file
+    let error = s:persist()
+    if empty(error)
+      echo 'Tracking session in '.fnamemodify(file, ':~:.')
+      let v:this_session = file
+      return ''
+    else
+      return error
+    endif
+  finally
+    let &l:readonly = &l:readonly
+  endtry
 endfunction
 
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+function! s:doautocmd_user(arg) abort
+  if !exists('#User#' . a:arg)
+    return ''
+  else
+    return 'doautocmd <nomodeline> User ' . fnameescape(a:arg)
+  endif
+endfunction
 
-let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+function! s:persist() abort
+  if exists('g:SessionLoad')
+    return ''
+  endif
+  let sessionoptions = &sessionoptions
+  if exists('g:this_obsession')
+    let tmp = g:this_obsession . '.' . getpid() . '.obsession~'
+    try
+      set sessionoptions-=blank sessionoptions-=options sessionoptions+=tabpages
+      exe s:doautocmd_user('ObsessionPre')
+      execute 'mksession!' fnameescape(tmp)
+      let v:this_session = g:this_obsession
+      let body = readfile(tmp)
+      call insert(body, 'let g:this_session = v:this_session', -3)
+      call insert(body, 'let g:this_obsession = v:this_session', -3)
+      if type(get(g:, 'obsession_append')) == type([])
+        for line in g:obsession_append
+          call insert(body, line, -3)
+        endfor
+      endif
+      call writefile(body, tmp)
+      call rename(tmp, g:this_obsession)
+      let g:this_session = g:this_obsession
+      exe s:doautocmd_user('Obsession')
+    catch /^Vim(mksession):E11:/
+      return ''
+    catch
+      unlet g:this_obsession
+      let &l:readonly = &l:readonly
+      return 'echoerr '.string(v:exception)
+    finally
+      let &sessionoptions = sessionoptions
+      call delete(tmp)
+    endtry
+  endif
+  return ''
+endfunction
 
-" ALE settings
-let g:ale_completion_enabled = 1
-let g:ale_completion_autoimport = 1
-let g:ale_sign_column_always = 1
-let g:ale_virtualtext_cursor = 1
-let g:ale_virtualtext_prefix = '❯ '
-let g:ale_hover_to_preview = 1
-let g:ale_lsp_suggestions = 1
-let g:ale_floating_preview = 1
-let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
-let g:ale_rust_ignore_error_codes = ['E0432', 'E0433']
-let g:ale_lint_delay = 200
-let g:ale_cache_executable_check = 1
-let g:ale_set_balloons = 1
-let g:ale_close_preview_on_insert = 1
-let g:ale_sign_highlight_linenrs = 1
-let g:ale_completion_delay = 100
-let g:ale_completion_max_suggestions = 50
+function! ObsessionStatus(...) abort
+  let args = copy(a:000)
+  let numeric = !empty(v:this_session) + exists('g:this_obsession')
+  if type(get(args, 0, '')) == type(0)
+    if !remove(args, 0)
+      return ''
+    endif
+  endif
+  if empty(args)
+    let args = ['[$]', '[S]']
+  endif
+  if len(args) == 1 && numeric == 1
+    let fmt = args[0]
+  else
+    let fmt = get(args, 2-numeric, '')
+  endif
+  return substitute(fmt, '%s', get(['', 'Session', 'Obsession'], numeric), 'g')
+endfunction
 
-nmap <silent> gd <Plug>(ale_go_to_definition)
-nmap <silent> gy <Plug>(ale_go_to_type_definition)
-nmap <silent> gr <Plug>(ale_find_references)
-nmap <silent> K <Plug>(ale_hover)
-nmap <silent> <leader>rn <Plug>(ale_rename)
-nmap <silent> <leader>ca <Plug>(ale_code_action)
-nmap <silent> [d <Plug>(ale_previous_wrap)
-nmap <silent> ]d <Plug>(ale_next_wrap)
-nmap <silent> <leader>d :ALEDetail<CR>
-
-nnoremap <leader>e :NERDTreeToggle<CR>
-
-nnoremap <left> <cmd>vertical resize +2<CR>
-nnoremap <right> <cmd>vertical resize -2<CR>
-nnoremap <down> <cmd>horizontal resize +2<CR>
-nnoremap <up> <cmd>horizontal resize -2<CR>
+augroup obsession
+  autocmd!
+  autocmd VimLeavePre * exe s:persist()
+  autocmd BufEnter *
+        \ if !get(g:, 'obsession_no_bufenter') |
+        \   exe s:persist() |
+        \ endif
+  autocmd User Flags call Hoist('global', 'ObsessionStatus')
+augroup END

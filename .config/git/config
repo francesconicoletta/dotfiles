@@ -17,11 +17,8 @@
 	dog = log --decorate --oneline --graph
 	grep = grep --line-number --show-function --heading --break
 	showtool = "!f() { git difftool $1~1 $1 ${2:-}; }; f"
-	jump = "!sh /opt/homebrew/Cellar/git/**/share/git-core/contrib/git-jump/git-jump"
+	jump = "!sh ~/.local/bin/git-jump"
 [color]
 	ui = auto
 [commit]
 	verbose = true
-[absorb]
-	maxStack = 50
-	oneFixupPerCommit = true
